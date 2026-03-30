@@ -712,15 +712,154 @@ class Veo3ReferenceToVideo4KNode(Veo3ReferenceToVideo):
         return types
 
 
+class Veo3ExtendVideoNode:
+    """
+    A ComfyUI node for extending existing videos using the Google Veo 3.1 API.
+    """
+
+    @classmethod
+    def INPUT_TYPES(cls) -> Dict[str, Dict[str, Any]]:
+        return {
+            "required": {
+                "model": (
+                    [model.name for model in Veo3Model],
+                    {"default": Veo3Model.VEO_3_1_PREVIEW.name},
+                ),
+                "input_video_gcs_uri": (
+                    "STRING",
+                    {"default": "", "tooltip": "GCS URI of the video to extend (e.g., gs://bucket/video.mp4)"},
+                ),
+                "prompt": ("STRING", {"multiline": True}),
+                "output_resolution": (["720p", "1080p"], {"default": "720p"}),
+                "compression_quality": (
+                    ["optimized", "lossless"],
+                    {"default": "optimized"},
+                ),
+                "person_generation": (
+                    ["dont_allow", "allow_adult"],
+                    {"default": "allow_adult"},
+                ),
+                "duration_seconds": (
+                    "INT",
+                    {"default": 8, "min": 2, "max": 8, "step": 2},
+                ),
+                "generate_audio": ("BOOLEAN", {"default": True}),
+                "sample_count": ("INT", {"default": 1, "min": 1, "max": 4, "step": 1}),
+            },
+            "optional": {
+                "output_gcs_uri": ("STRING", {"default": ""}),
+                "negative_prompt": ("STRING", {"multiline": True, "default": ""}),
+                "enhance_prompt": ("BOOLEAN", {"default": True}),
+                "seed": (
+                    "INT",
+                    {
+                        "default": 0,
+                        "min": 0,
+                        "max": MAX_SEED,
+                        "tooltip": "0 seed let's Veo API handle randomness. Seed works with enhance_prompt disabled",
+                    },
+                ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
+                "gcp_project_id": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "GCP project id where Vertex AI API will query Veo",
+                    },
+                ),
+                "gcp_region": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "GCP region for Vertex AI API",
+                    },
+                ),
+            },
+        }
+
+    RETURN_TYPES = ("VEO_VIDEO",)
+    RETURN_NAMES = ("video_paths",)
+    FUNCTION = "extend"
+    CATEGORY = "Google AI/Veo3.1"
+
+    def extend(
+        self,
+        model: str,
+        input_video_gcs_uri: str,
+        prompt: str,
+        output_resolution: str = "720p",
+        compression_quality: str = "optimized",
+        person_generation: str = "allow_adult",
+        duration_seconds: int = 8,
+        generate_audio: bool = True,
+        enhance_prompt: bool = True,
+        sample_count: int = 1,
+        output_gcs_uri: str = "",
+        negative_prompt: Optional[str] = None,
+        seed: Optional[int] = None,
+        api_key: str = "",
+        gcp_project_id: Optional[str] = None,
+        gcp_region: Optional[str] = None,
+    ) -> Tuple[List[str],]:
+        """
+        Extends an existing video using the Google Veo 3.1 API.
+        """
+        try:
+            init_api_key = api_key if api_key else None
+            api = Veo3API(project_id=gcp_project_id, region=gcp_region, api_key=init_api_key)
+        except ConfigurationError as e:
+            raise RuntimeError(f"Veo API Configuration Error: {e}") from e
+
+        seed_for_api = seed if seed != 0 else None
+
+        try:
+            video_paths = api.extend_video(
+                model=model,
+                prompt=prompt,
+                input_video_gcs_uri=input_video_gcs_uri,
+                output_resolution=output_resolution,
+                compression_quality=compression_quality,
+                person_generation=person_generation,
+                duration_seconds=duration_seconds,
+                generate_audio=generate_audio,
+                enhance_prompt=enhance_prompt,
+                sample_count=sample_count,
+                output_gcs_uri=output_gcs_uri,
+                negative_prompt=negative_prompt,
+                seed=seed_for_api,
+            )
+        except (APIInputError, APIExecutionError) as e:
+            raise RuntimeError(f"Video extension failed: {e}") from e
+
+        return (video_paths,)
+
+
+class Veo3ExtendVideo4KNode(Veo3ExtendVideoNode):
+    @classmethod
+    def INPUT_TYPES(cls):
+        types = super().INPUT_TYPES()
+        types["required"]["model"] = ([Veo3Model.VEO_3_1_PREVIEW.name, Veo3Model.VEO_3_1_FAST_PREVIEW.name], {"default": Veo3Model.VEO_3_1_PREVIEW.name})
+        types["required"]["output_resolution"] = (["720p", "1080p", "4k"], {"default": "4k"})
+        return types
+
+
 NODE_CLASS_MAPPINGS = {
     "Veo3TextToVideoNode": Veo3TextToVideoNode,
     "Veo3GcsUriImageToVideoNode": Veo3GcsUriImageToVideoNode,
     "Veo3ImageToVideoNode": Veo3ImageToVideoNode,
     "Veo3ReferenceToVideo": Veo3ReferenceToVideo,
+    "Veo3ExtendVideoNode": Veo3ExtendVideoNode,
     "Veo3TextToVideo4KNode": Veo3TextToVideo4KNode,
     "Veo3GcsUriImageToVideo4KNode": Veo3GcsUriImageToVideo4KNode,
     "Veo3ImageToVideo4KNode": Veo3ImageToVideo4KNode,
     "Veo3ReferenceToVideo4K": Veo3ReferenceToVideo4KNode,
+    "Veo3ExtendVideo4KNode": Veo3ExtendVideo4KNode,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -728,8 +867,11 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "Veo3GcsUriImageToVideoNode": "Veo3.1 Image To Video (GcsUriImage)",
     "Veo3ImageToVideoNode": "Veo3.1 Image To Video",
     "Veo3ReferenceToVideo": "Veo3.1 Reference To Video",
+    "Veo3ExtendVideoNode": "Veo3.1 Extend Video",
     "Veo3TextToVideo4KNode": "Veo3.1 Text To Video (4K)",
     "Veo3GcsUriImageToVideo4KNode": "Veo3.1 Image To Video (4K, GcsUriImage)",
     "Veo3ImageToVideo4KNode": "Veo3.1 Image To Video (4K)",
     "Veo3ReferenceToVideo4K": "Veo3.1 Reference To Video (4K)",
+    "Veo3ExtendVideo4KNode": "Veo3.1 Extend Video (4K)",
 }
+

@@ -69,6 +69,7 @@ VEO2_OUTPUT_RESOLUTION = "720p"
 VEO2_MODEL_ID = "veo-2.0-generate-001"
 VEO2_USER_AGENT = "cloud-solutions/comfyui-veo2-custom-node-v1"
 VEO3_USER_AGENT = "cloud-solutions/comfyui-veo3-custom-node-v1"
+TTS_USER_AGENT = "cloud-solutions/comfyui-tts-custom-node-v1"
 VEO3_VALID_ASPECT_RATIOS = ("16:9", "9:16")
 VEO3_VALID_DURATION_SECONDS = (4, 6, 8)
 VEO3_VALID_SAMPLE_COUNT = (1, 2, 3, 4)
@@ -109,3 +110,12 @@ class Veo3Model(str, Enum):
     VEO_3_1_FAST_PREVIEW = "veo-3.1-fast-generate-preview"
     VEO_3_1_GENERATE_001 = "veo-3.1-generate-001"
     VEO_3_1_FAST_GENERATE_001 = "veo-3.1-fast-generate-001"
+
+
+class TTSModel(str, Enum):
+    GEMINI_TTS = "gemini-2.0-flash"
+
+
+class SpeechModel(str, Enum):
+    CHIRP_2 = "chirp-2-001"
+    CHIRP_3 = "chirp-3-preview"
