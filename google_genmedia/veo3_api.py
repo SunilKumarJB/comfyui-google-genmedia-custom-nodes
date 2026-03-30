@@ -41,7 +41,10 @@ class Veo3API(VertexAIClient):
     """
 
     def __init__(
-        self, project_id: Optional[str] = None, region: Optional[str] = None
+        self,
+        project_id: Optional[str] = None,
+        region: Optional[str] = None,
+        api_key: Optional[str] = None,
     ) -> None:
         """
         Initializes the Veo3API client.
@@ -49,12 +52,16 @@ class Veo3API(VertexAIClient):
         Args:
             project_id: The GCP project ID. If None, it will be retrieved from GCP metadata.
             region: The GCP region. If None, it will be retrieved from GCP metadata.
+            api_key: The Google GenAI API Key. If provided, prioritizes over environment variable.
 
         Raises:
             ConfigurationError: If GCP Project or region cannot be determined or client initialization fails.
         """
         super().__init__(
-            gcp_project_id=project_id, gcp_region=region, user_agent=VEO3_USER_AGENT
+            gcp_project_id=project_id,
+            gcp_region=region,
+            user_agent=VEO3_USER_AGENT,
+            api_key=api_key,
         )
 
     def generate_video_from_text(

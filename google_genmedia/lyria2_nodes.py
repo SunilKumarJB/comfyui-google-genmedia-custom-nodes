@@ -69,6 +69,13 @@ class Lyria2TextToMusicNode:
                         "control_after_generate": False,
                     },
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
                 "gcp_project_id": (
                     "STRING",
                     {"default": "", "placeholder": "your-gcp-project-id"},
@@ -85,6 +92,7 @@ class Lyria2TextToMusicNode:
     def generate_music(
         self,
         prompt: str,
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
         negative_prompt: Optional[str] = None,
@@ -96,6 +104,7 @@ class Lyria2TextToMusicNode:
 
         Args:
             prompt: The text prompt for music generation.
+            api_key: Google GenAI API Key.
             gcp_project_id: The GCP project ID. If provided, overrides metadata lookup.
             gcp_region: The GCP region. If provided, overrides metadata lookup.
             negative_prompt: An optional prompt to guide the model to avoid generating certain things.
@@ -125,7 +134,8 @@ class Lyria2TextToMusicNode:
             )
 
         try:
-            lyria2_api = Lyria2API(project_id=gcp_project_id, region=gcp_region)
+            init_api_key = api_key if api_key else None
+            lyria2_api = Lyria2API(project_id=gcp_project_id, region=gcp_region, api_key=init_api_key)
             audio_data = lyria2_api.generate_music_from_text(
                 negative_prompt=negative_prompt,
                 prompt=prompt,

@@ -42,11 +42,17 @@ class GeminiProImageAPI(VertexAIClient):
     A class to interact with the Gemini Pro Image Preview model.
     """
 
-    def __init__(self, project_id: Optional[str] = None, region: Optional[str] = None):
+    def __init__(
+        self,
+        project_id: Optional[str] = None,
+        region: Optional[str] = None,
+        api_key: Optional[str] = None,
+    ):
         """Initializes the Gemini 3 Pro Image Preview client.
         Args:
             project_id (Optional[str], optional): The GCP project ID. If not provided, it will be inferred from the environment. Defaults to None.
             region (Optional[str], optional): The GCP region. If not provided, it will be inferred from the environment. Defaults to None.
+            api_key (Optional[str], optional): The Google GenAI API Key. If provided, prioritizes over environment variable. Defaults to None.
         Raises:
             ConfigurationError: If GCP Project or region cannot be determined or client initialization fails.
         """
@@ -54,6 +60,7 @@ class GeminiProImageAPI(VertexAIClient):
             gcp_project_id=project_id,
             gcp_region=region,
             user_agent=GEMINI_3_PRO_IMAGE_USER_AGENT,
+            api_key=api_key,
         )
 
     @api_error_retry

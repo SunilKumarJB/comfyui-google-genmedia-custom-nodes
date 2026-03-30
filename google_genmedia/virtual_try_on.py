@@ -39,7 +39,10 @@ class VirtualTryOn(VertexAIClient):
     """
 
     def __init__(
-        self, gcp_project_id: Optional[str] = None, gcp_region: Optional[str] = None
+        self,
+        gcp_project_id: Optional[str] = None,
+        gcp_region: Optional[str] = None,
+        api_key: Optional[str] = None,
     ):
         """
         Initializes the Gemini client.
@@ -47,11 +50,12 @@ class VirtualTryOn(VertexAIClient):
         Args:
             gcp_project_id: The GCP project ID. If provided, overrides metadata lookup.
             gcp_region: The GCP region. If provided, overrides metadata lookup.
+            api_key: The Google GenAI API Key. If provided, prioritizes over environment variable.
 
         Raises:
             ConfigurationError: If GCP Project or region cannot be determined or client initialization fails.
         """
-        super().__init__(gcp_project_id, gcp_region)
+        super().__init__(gcp_project_id, gcp_region, api_key=api_key)
         try:
             aiplatform.init(project=self.project_id, location=self.region)
             self.api_regional_endpoint = f"{self.region}-aiplatform.googleapis.com"
@@ -107,6 +111,13 @@ class VirtualTryOn(VertexAIClient):
                         "BLOCK_NONE",
                     ],
                     {"default": "BLOCK_MEDIUM_AND_ABOVE"},
+                ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
                 ),
                 "gcp_project_id": (
                     "STRING",
@@ -167,6 +178,7 @@ class VirtualTryOn(VertexAIClient):
         seed: int = 0,
         add_watermark: bool = False,
         safety_filter_level: str = "BLOCK_MEDIUM_AND_ABOVE",
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
     ) -> Tuple[torch.Tensor,]:
@@ -186,6 +198,7 @@ class VirtualTryOn(VertexAIClient):
             add_watermark: A boolean indicating whether to add a watermark to the output image.
             safety_filter_level: The safety filter level for the generated images, with options
                             like 'BLOCK_LOW_AND_ABOVE', 'BLOCK_MEDIUM_AND_ABOVE', etc.
+            api_key: Google GenAI API Key.
             gcp_project_id: An optional string for the GCP project ID. If provided, it overrides
                         the project ID determined from metadata.
             gcp_region: An optional string for the GCP region. If provided, it overrides the
@@ -201,7 +214,8 @@ class VirtualTryOn(VertexAIClient):
             # Re-initialize the client if needed
             init_project_id = gcp_project_id if gcp_project_id else None
             init_region = gcp_region if gcp_region else None
-            self.__init__(gcp_project_id=init_project_id, gcp_region=init_region)
+            init_api_key = api_key if api_key else None
+            self.__init__(gcp_project_id=init_project_id, gcp_region=init_region, api_key=init_api_key)
         except ConfigurationError as e:
             raise RuntimeError(f"Virtual Try-On API Configuration Error: {e}") from e
 

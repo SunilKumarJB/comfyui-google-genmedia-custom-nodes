@@ -86,6 +86,13 @@ class Imagen3TextToImageNode:
                     ],
                     {"default": "BLOCK_MEDIUM_AND_ABOVE"},
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
                 "gcp_project_id": (
                     "STRING",
                     {
@@ -121,6 +128,7 @@ class Imagen3TextToImageNode:
         add_watermark: bool = False,
         output_image_type: str = "PNG",
         safety_filter_level: str = "BLOCK_MEDIUM_AND_ABOVE",
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
     ) -> Tuple[torch.Tensor,]:
@@ -139,6 +147,7 @@ class Imagen3TextToImageNode:
             add_watermark: Whether to add a watermark to the generated images.
             output_image_type: The desired output image format (PNG or JPEG).
             safety_filter_level: The safety filter strictness.
+            api_key: Google GenAI API Key.
             gcp_project_id: GCP project ID where the Imagen will be queried via Vertex AI APIs
             gcp_region: GCP region for Vertex AI APIs to query Imagen
 
@@ -150,7 +159,8 @@ class Imagen3TextToImageNode:
             RuntimeError: If API configuration fails, or if image generation encounters an API error.
         """
         try:
-            imagen_api = Imagen3API(project_id=gcp_project_id, region=gcp_region)
+            init_api_key = api_key if api_key else None
+            imagen_api = Imagen3API(project_id=gcp_project_id, region=gcp_region, api_key=init_api_key)
         except ConfigurationError as e:
             raise RuntimeError(f"Imagen API Configuration Error: {e}") from e
 

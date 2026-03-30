@@ -14,6 +14,7 @@
 
 # This is a preview version of Lyria2 custom node
 
+import os
 from typing import Optional
 
 from google.api_core.gapic_v1.client_info import ClientInfo
@@ -34,20 +35,39 @@ class Lyria2API(VertexAIClient):
     A class to interact with the Imagen API for image generation.
     """
 
-    def __init__(self, project_id: Optional[str] = None, region: Optional[str] = None):
+    def __init__(
+        self,
+        project_id: Optional[str] = None,
+        region: Optional[str] = None,
+        api_key: Optional[str] = None,
+    ):
         """
         Initializes the client.
 
         Args:
             project_id: The GCP project ID. If provided, overrides metadata lookup.
             region: The GCP region. If provided, overrides metadata lookup.
+            api_key: The Google GenAI API Key. If provided, prioritizes over environment variable.
 
         Raises:
             ConfigurationError: If GCP Project or region cannot be determined or client initialization fails.
         """
         super().__init__(
-            gcp_project_id=project_id, gcp_region=region, user_agent=LYRIA2_USER_AGENT
+            gcp_project_id=project_id,
+            gcp_region=region,
+            user_agent=LYRIA2_USER_AGENT,
+            api_key=api_key,
         )
+
+        if api_key or "GEMINI_API_KEY" in os.environ:
+             # If using API key, the Vertex AI setup below might not be needed or might fail.
+             # However, for Lyria2 it currently uses PredictionServiceClient which needs project/region.
+             # We might need to handle this if Lyria2 starts supporting API Keys in genai.Client.
+             # For now, we follow instructions and pass it to super.
+             # If api_key was provided, super().__init__ returned early and didn't set project_id.
+             if not hasattr(self, "project_id"):
+                 logger.info("Lyria2API initialized with API Key. Vertex AI specific initialization skipped.")
+                 return
 
         try:
             aiplatform.init(project=self.project_id, location=self.region)

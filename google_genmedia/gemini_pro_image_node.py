@@ -132,11 +132,18 @@ class Gemini3ProImage:
                         "placeholder": "Optional system instruction for the model",
                     },
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
                 "gcp_project_id": (
                     "STRING",
                     {
                         "default": "",
-                        "tooltip": "GCP project id where Vertex AI API will query Gemini",
+                        "tooltip": "GCP project id where Vertex AI API will query Gemini Pro Image",
                     },
                 ),
                 "gcp_region": (
@@ -176,6 +183,7 @@ class Gemini3ProImage:
         image4: Optional[torch.Tensor] = None,
         image5: Optional[torch.Tensor] = None,
         image6: Optional[torch.Tensor] = None,
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
     ) -> Tuple[torch.Tensor,]:
@@ -206,6 +214,7 @@ class Gemini3ProImage:
             image4: An optional fourth input image tensor. Defaults to None.
             image5: An optional fifth input image tensor. Defaults to None.
             image6: An optional sixth input image tensor. Defaults to None.
+            api_key: Google GenAI API Key.
             gcp_project_id: The GCP project ID.
             gcp_region: The GCP region.
 
@@ -217,12 +226,13 @@ class Gemini3ProImage:
             RuntimeError: If API configuration fails, or if image generation encounters an API error.
         """
         try:
+            init_api_key = api_key if api_key else None
             gemini_pro_image_api = GeminiProImageAPI(
-                project_id=gcp_project_id, region=gcp_region
+                project_id=gcp_project_id, region=gcp_region, api_key=init_api_key
             )
         except ConfigurationError as e:
             raise RuntimeError(
-                f"Gemini Flash Image API Configuration Error: {e}"
+                f"Gemini Pro Image API Configuration Error: {e}"
             ) from e
 
         output_mime_type = "image/" + output_mime_type.lower()
@@ -265,7 +275,7 @@ class Gemini3ProImage:
 
         if not pil_images:
             raise RuntimeError(
-                "Imagen API failed to generate images or generated no valid images."
+                "Gemini Pro Image API failed to generate images or generated no valid images."
             )
 
         output_tensors: List[torch.Tensor] = []
@@ -280,5 +290,4 @@ class Gemini3ProImage:
 
 
 NODE_CLASS_MAPPINGS = {"Gemini3ProImage": Gemini3ProImage}
-
-NODE_DISPLAY_NAME_MAPPINGS = {"Gemini3ProImage": "Gemini 3 Pro Image (🍌)"}
+NODE_DISPLAY_NAME_MAPPINGS = {"Gemini3ProImage": "Gemini 3 Pro Image"}

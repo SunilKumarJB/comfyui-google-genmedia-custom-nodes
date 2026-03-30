@@ -69,11 +69,18 @@ class Veo3TextToVideoNode:
                         "tooltip": "0 seed let's Veo API handle randomness. Seed works with enhance_prompt disabled",
                     },
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
                 "gcp_project_id": (
                     "STRING",
                     {
                         "default": "",
-                        "tooltip": "GCP project id where Vertex AI API will query Imagen",
+                        "tooltip": "GCP project id where Vertex AI API will query Veo",
                     },
                 ),
                 "gcp_region": (
@@ -106,6 +113,7 @@ class Veo3TextToVideoNode:
         output_gcs_uri: str = "",
         negative_prompt: Optional[str] = None,
         seed: Optional[int] = None,
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
     ) -> Tuple[List[str],]:
@@ -126,6 +134,7 @@ class Veo3TextToVideoNode:
             output_gcs_uri: output gcs url to store the video. Required with lossless output.
             negative_prompt: An optional prompt to guide the model to avoid generating certain things.
             seed: An optional seed for reproducible video generation.
+            api_key: Google GenAI API Key.
             gcp_project_id: GCP project ID where the Veo will be queried via Vertex AI APIs
             gcp_region: GCP region for Vertex AI APIs to query Veo
 
@@ -136,7 +145,8 @@ class Veo3TextToVideoNode:
             RuntimeError: If API configuration fails, or if video generation encounters an API error.
         """
         try:
-            api = Veo3API(project_id=gcp_project_id, region=gcp_region)
+            init_api_key = api_key if api_key else None
+            api = Veo3API(project_id=gcp_project_id, region=gcp_region, api_key=init_api_key)
         except ConfigurationError as e:
             raise RuntimeError(f"Veo API Configuration Error: {e}") from e
 
@@ -226,11 +236,18 @@ class Veo3GcsUriImageToVideoNode:
                         "tooltip": "0 seed let's Veo API handle randomness. Seed works with enhance_prompt disabled",
                     },
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
                 "gcp_project_id": (
                     "STRING",
                     {
                         "default": "",
-                        "tooltip": "GCP project id where Vertex AI API will query Imagen",
+                        "tooltip": "GCP project id where Vertex AI API will query Veo",
                     },
                 ),
                 "gcp_region": (
@@ -266,6 +283,7 @@ class Veo3GcsUriImageToVideoNode:
         output_gcs_uri: str = "",
         negative_prompt: Optional[str] = None,
         seed: Optional[int] = None,
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
     ) -> Tuple[List[str],]:
@@ -289,6 +307,7 @@ class Veo3GcsUriImageToVideoNode:
             output_gcs_uri: output gcs url to store the video. Required with lossless output.
             negative_prompt: An optional prompt to guide the model to avoid generating certain things.
             seed: An optional seed for reproducible video generation.
+            api_key: Google GenAI API Key.
             gcp_project_id: GCP project ID where the Veo will be queried via Vertex AI APIs
             gcp_region: GCP region for Vertex AI APIs to query Veo
 
@@ -299,7 +318,8 @@ class Veo3GcsUriImageToVideoNode:
             RuntimeError: If API configuration fails, or if video generation encounters an API error.
         """
         try:
-            api = Veo3API(project_id=gcp_project_id, region=gcp_region)
+            init_api_key = api_key if api_key else None
+            api = Veo3API(project_id=gcp_project_id, region=gcp_region, api_key=init_api_key)
         except ConfigurationError as e:
             raise RuntimeError(f"Veo API Configuration Error: {e}") from e
 
@@ -386,11 +406,18 @@ class Veo3ImageToVideoNode:
                         "tooltip": "0 seed let's Veo API handle randomness. Seed works with enhance_prompt disabled",
                     },
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
                 "gcp_project_id": (
                     "STRING",
                     {
                         "default": "",
-                        "tooltip": "GCP project id where Vertex AI API will query Imagen",
+                        "tooltip": "GCP project id where Vertex AI API will query Veo",
                     },
                 ),
                 "gcp_region": (
@@ -426,6 +453,7 @@ class Veo3ImageToVideoNode:
         last_frame: Optional[torch.Tensor] = None,
         output_gcs_uri: str = "",
         negative_prompt: Optional[str] = None,
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
     ) -> Tuple[List[str],]:
@@ -449,6 +477,7 @@ class Veo3ImageToVideoNode:
             last_frame: last frame for interpolation.
             output_gcs_uri: output gcs url to store the video. Required with lossless output.
             negative_prompt: An optional prompt to guide the model to avoid generating certain things.
+            api_key: Google GenAI API Key.
             gcp_project_id: GCP project ID where the Veo will be queried via Vertex AI APIs
             gcp_region: GCP region for Vertex AI APIs to query Veo
 
@@ -459,7 +488,8 @@ class Veo3ImageToVideoNode:
             RuntimeError: If API configuration fails, or if video generation encounters an API error.
         """
         try:
-            api = Veo3API(project_id=gcp_project_id, region=gcp_region)
+            init_api_key = api_key if api_key else None
+            api = Veo3API(project_id=gcp_project_id, region=gcp_region, api_key=init_api_key)
         except ConfigurationError as e:
             raise RuntimeError(f"Veo API Configuration Error: {e}") from e
 
@@ -559,6 +589,13 @@ class Veo3ReferenceToVideo:
                         "tooltip": "0 seed let's Veo API handle randomness.",
                     },
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
                 "gcp_project_id": (
                     "STRING",
                     {
@@ -600,11 +637,13 @@ class Veo3ReferenceToVideo:
         output_gcs_uri: str = "",
         negative_prompt: Optional[str] = None,
         seed: Optional[int] = None,
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
     ) -> Tuple[List[str],]:
         try:
-            api = Veo3API(project_id=gcp_project_id, region=gcp_region)
+            init_api_key = api_key if api_key else None
+            api = Veo3API(project_id=gcp_project_id, region=gcp_region, api_key=init_api_key)
         except ConfigurationError as e:
             raise RuntimeError(f"Veo API Configuration Error: {e}") from e
 
