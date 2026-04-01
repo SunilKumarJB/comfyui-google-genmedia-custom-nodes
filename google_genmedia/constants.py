@@ -83,9 +83,9 @@ class GeminiFlashImageModel(Enum):
 
 
 class GeminiModel(Enum):
-    GEMINI_PRO = "gemini-3.0-pro"
+    GEMINI_PRO = "gemini-3-pro-preview"
     GEMINI_FLASH = "gemini-2.5-flash"
-    GEMINI_FLASH_LITE = "gemini-2.5-flash-lite-preview-06-17"
+    GEMINI_FLASH_LITE = "gemini-2.5-flash-lite"
 
 
 class GeminiProImageModel(Enum):
