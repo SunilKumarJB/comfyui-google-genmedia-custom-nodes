@@ -52,9 +52,12 @@ class Lyria2API(VertexAIClient):
         Raises:
             ConfigurationError: If GCP Project or region cannot be determined or client initialization fails.
         """
+        # Lyria 2 prediction endpoint is only available in us-central1
+        # We force us-central1 if region is empty to prevent 404 errors (e.g. from global .env)
+        effective_region = region if region else "us-central1"
         super().__init__(
             gcp_project_id=project_id,
-            gcp_region=region,
+            gcp_region=effective_region,
             user_agent=LYRIA2_USER_AGENT,
             api_key=api_key,
         )
