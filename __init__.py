@@ -27,6 +27,7 @@ from .google_genmedia import (
     imagen3_nodes,
     imagen4_nodes,
     lyria2_nodes,
+    lyria3_nodes,
     veo2_nodes,
     veo3_nodes,
     virtual_try_on,
