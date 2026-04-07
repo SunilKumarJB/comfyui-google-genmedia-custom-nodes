@@ -69,11 +69,12 @@ VEO2_OUTPUT_RESOLUTION = "720p"
 VEO2_MODEL_ID = "veo-2.0-generate-001"
 VEO2_USER_AGENT = "cloud-solutions/comfyui-veo2-custom-node-v1"
 VEO3_USER_AGENT = "cloud-solutions/comfyui-veo3-custom-node-v1"
+TTS_USER_AGENT = "cloud-solutions/comfyui-tts-custom-node-v1"
 VEO3_VALID_ASPECT_RATIOS = ("16:9", "9:16")
 VEO3_VALID_DURATION_SECONDS = (4, 6, 8)
 VEO3_VALID_SAMPLE_COUNT = (1, 2, 3, 4)
 VIDEO_MIME_TYPES = ["video/mp4", "video/mpeg"]
-VTO_MODEL = "virtual-try-on-preview-08-04"
+VTO_MODEL = "virtual-try-on-001"
 VTO_USER_AGENT = "cloud-solutions/virtual-try-on-custom-node-v1"
 
 
@@ -82,9 +83,9 @@ class GeminiFlashImageModel(Enum):
 
 
 class GeminiModel(Enum):
-    GEMINI_PRO = "gemini-2.5-pro"
+    GEMINI_PRO = "gemini-3-pro-preview"
     GEMINI_FLASH = "gemini-2.5-flash"
-    GEMINI_FLASH_LITE = "gemini-2.5-flash-lite-preview-06-17"
+    GEMINI_FLASH_LITE = "gemini-2.5-flash-lite"
 
 
 class GeminiProImageModel(Enum):
@@ -95,6 +96,9 @@ class Imagen4Model(str, Enum):
     IMAGEN_4_PREVIEW = "imagen-4.0-generate-preview-06-06"
     IMAGEN_4_FAST_PREVIEW = "imagen-4.0-fast-generate-preview-06-06"
     IMAGEN_4_ULTRA_PREVIEW = "imagen-4.0-ultra-generate-preview-06-06"
+    IMAGEN_4_GENERATE_001 = "imagen-4.0-generate-001"
+    IMAGEN_4_FAST_GENERATE_001 = "imagen-4.0-fast-generate-001"
+    IMAGEN_4_ULTRA_GENERATE_001 = "imagen-4.0-ultra-generate-001"
 
 
 class ThresholdOptions(Enum):
@@ -109,3 +113,41 @@ class Veo3Model(str, Enum):
     VEO_3_1_FAST_PREVIEW = "veo-3.1-fast-generate-preview"
     VEO_3_1_GENERATE_001 = "veo-3.1-generate-001"
     VEO_3_1_FAST_GENERATE_001 = "veo-3.1-fast-generate-001"
+
+
+class TTSModel(str, Enum):
+    GEMINI_TTS_FLASH = "gemini-2.5-flash-tts"
+    GEMINI_TTS_FLASH_LITE_PREVIEW = "gemini-2.5-flash-lite-preview-tts"
+    GEMINI_TTS_PRO = "gemini-2.5-pro-tts"
+
+
+class Lyria3Model(str, Enum):
+    LYRIA_3_CLIP = "lyria-3-clip-preview"
+    LYRIA_3_PRO = "lyria-3-pro-preview"
+
+
+LYRIA3_USER_AGENT = "cloud-solutions/comfyui-lyria3-custom-node-v1"
+
+
+# Gemini TTS voices (28 total) — used as bare voice names in VoiceSelectionParams
+GEMINI_TTS_VOICES = [
+    "Zephyr", "Puck", "Charon", "Kore", "Fenrir", "Aoede", "Leda", "Orus",
+    "Perseus", "Schedar", "Gacrux", "Zubenelgenubi", "Pulcherrima", "Achird",
+    "Achernar", "Electra", "Iapetus", "Umbriel", "Algieba", "Despina",
+    "Erinome", "Algenib", "Rasalgethi", "Laomedeia", "Acrab", "Izar",
+    "Vindemiatrix", "Sadachbia",
+]
+
+# Chirp 3 HD voices — full voice name format: {locale}-Chirp3-HD-{name}
+CHIRP3_HD_VOICES = [
+    "en-US-Chirp3-HD-Zephyr", "en-US-Chirp3-HD-Puck", "en-US-Chirp3-HD-Charon",
+    "en-US-Chirp3-HD-Kore", "en-US-Chirp3-HD-Fenrir", "en-US-Chirp3-HD-Aoede",
+    "en-US-Chirp3-HD-Leda", "en-US-Chirp3-HD-Orus", "en-US-Chirp3-HD-Perseus",
+    "en-US-Chirp3-HD-Schedar", "en-US-Chirp3-HD-Gacrux", "en-US-Chirp3-HD-Zubenelgenubi",
+    "en-US-Chirp3-HD-Pulcherrima", "en-US-Chirp3-HD-Achird", "en-US-Chirp3-HD-Achernar",
+    "en-US-Chirp3-HD-Electra", "en-US-Chirp3-HD-Iapetus", "en-US-Chirp3-HD-Umbriel",
+    "en-US-Chirp3-HD-Algieba", "en-US-Chirp3-HD-Despina", "en-US-Chirp3-HD-Erinome",
+    "en-US-Chirp3-HD-Algenib", "en-US-Chirp3-HD-Rasalgethi", "en-US-Chirp3-HD-Laomedeia",
+    "en-US-Chirp3-HD-Acrab", "en-US-Chirp3-HD-Izar", "en-US-Chirp3-HD-Vindemiatrix",
+    "en-US-Chirp3-HD-Sadachbia",
+]

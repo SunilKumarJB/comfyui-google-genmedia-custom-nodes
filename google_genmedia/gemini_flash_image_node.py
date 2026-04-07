@@ -114,11 +114,18 @@ class Gemini25FlashImage:
                         "placeholder": "Optional system instruction for the model",
                     },
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
                 "gcp_project_id": (
                     "STRING",
                     {
                         "default": "",
-                        "tooltip": "GCP project id where Vertex AI API will query Imagen",
+                        "tooltip": "GCP project id where Vertex AI API will query Gemini Flash Image",
                     },
                 ),
                 "gcp_region": (
@@ -153,6 +160,7 @@ class Gemini25FlashImage:
         image1: Optional[torch.Tensor] = None,
         image2: Optional[torch.Tensor] = None,
         image3: Optional[torch.Tensor] = None,
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
     ) -> Tuple[torch.Tensor,]:
@@ -178,6 +186,7 @@ class Gemini25FlashImage:
             image1: An optional primary input image tensor for image editing tasks.
             image2: An optional second input image tensor. Defaults to None.
             image3: An optional third input image tensor. Defaults to None.
+            api_key: Google GenAI API Key.
             gcp_project_id: The GCP project ID.
             gcp_region: The GCP region.
 
@@ -189,8 +198,9 @@ class Gemini25FlashImage:
             RuntimeError: If API configuration fails, or if image generation encounters an API error.
         """
         try:
+            init_api_key = api_key if api_key else None
             gemini_flash_image_api = GeminiFlashImageAPI(
-                project_id=gcp_project_id, region=gcp_region
+                project_id=gcp_project_id, region=gcp_region, api_key=init_api_key
             )
         except ConfigurationError as e:
             raise RuntimeError(

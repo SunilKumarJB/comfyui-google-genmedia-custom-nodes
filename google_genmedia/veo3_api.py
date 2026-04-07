@@ -41,7 +41,10 @@ class Veo3API(VertexAIClient):
     """
 
     def __init__(
-        self, project_id: Optional[str] = None, region: Optional[str] = None
+        self,
+        project_id: Optional[str] = None,
+        region: Optional[str] = None,
+        api_key: Optional[str] = None,
     ) -> None:
         """
         Initializes the Veo3API client.
@@ -49,12 +52,16 @@ class Veo3API(VertexAIClient):
         Args:
             project_id: The GCP project ID. If None, it will be retrieved from GCP metadata.
             region: The GCP region. If None, it will be retrieved from GCP metadata.
+            api_key: The Google GenAI API Key. If provided, prioritizes over environment variable.
 
         Raises:
             ConfigurationError: If GCP Project or region cannot be determined or client initialization fails.
         """
         super().__init__(
-            gcp_project_id=project_id, gcp_region=region, user_agent=VEO3_USER_AGENT
+            gcp_project_id=project_id,
+            gcp_region=region,
+            user_agent=VEO3_USER_AGENT,
+            api_key=api_key,
         )
 
     def generate_video_from_text(
@@ -434,6 +441,82 @@ class Veo3API(VertexAIClient):
             enhance_prompt=enhance_prompt,
             sample_count=sample_count,
             last_frame_gcsuri=last_frame_gcsuri,
+            output_gcs_uri=output_gcs_uri,
+            output_resolution=output_resolution,
+            negative_prompt=negative_prompt,
+            seed=seed,
+        )
+
+    def extend_video(
+        self,
+        model: str,
+        prompt: str,
+        input_video_gcs_uri: str,
+        compression_quality: str,
+        person_generation: str,
+        duration_seconds: int,
+        generate_audio: bool,
+        enhance_prompt: bool,
+        sample_count: int,
+        output_gcs_uri: str,
+        output_resolution: str,
+        negative_prompt: Optional[str],
+        seed: Optional[int],
+    ) -> List[str]:
+        """
+        Extends a video using the Veo 3.1 API.
+
+        Args:
+            model: Veo3 model.
+            prompt: The text prompt for video extension.
+            input_video_gcs_uri: GCS URI of the video to extend.
+            compression_quality: Compression quality i.e optimized vs lossless.
+            person_generation: Controls whether the model can generate people.
+            duration_seconds: The desired duration of the extension in seconds.
+            generate_audio: Flag to generate audio.
+            enhance_prompt: Whether to enhance the prompt automatically.
+            sample_count: The number of video samples to generate.
+            output_gcs_uri: output gcs url to store the video.
+            output_resolution: The resolution of the generated video.
+            negative_prompt: An optional prompt to guide the model.
+            seed: An optional seed for reproducible generation.
+
+        Returns:
+            A list of file paths to the generated videos.
+        """
+        if not input_video_gcs_uri:
+            raise APIInputError("input_video_gcs_uri is required for video extension.")
+
+        if duration_seconds not in VEO3_VALID_DURATION_SECONDS:
+            raise APIInputError(
+                f"duration_seconds must be one of {VEO3_VALID_DURATION_SECONDS}, but got {duration_seconds}."
+            )
+        if sample_count not in VEO3_VALID_SAMPLE_COUNT:
+            raise APIInputError(
+                f"sample_count must be one of {VEO3_VALID_SAMPLE_COUNT} for Veo3, but got {sample_count}."
+            )
+        if output_resolution not in VEO3_OUTPUT_RESOLUTION:
+            raise APIInputError(
+                f"Veo3 can only generate videos of resolution {VEO3_OUTPUT_RESOLUTION}. You passed {output_resolution}."
+            )
+
+        model_enum = Veo3Model[model]
+
+        if output_resolution == "4k":
+            if model_enum not in [Veo3Model.VEO_3_1_PREVIEW, Veo3Model.VEO_3_1_FAST_PREVIEW]:
+                raise APIInputError("4K resolution is only supported for Veo 3.1 Preview models.")
+
+        return utils.extend_video(
+            client=self.client,
+            model=model_enum,
+            prompt=prompt,
+            input_video_gcs_uri=input_video_gcs_uri,
+            compression_quality=compression_quality,
+            person_generation=person_generation,
+            duration_seconds=duration_seconds,
+            generate_audio=generate_audio,
+            enhance_prompt=enhance_prompt,
+            sample_count=sample_count,
             output_gcs_uri=output_gcs_uri,
             output_resolution=output_resolution,
             negative_prompt=negative_prompt,

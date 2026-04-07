@@ -691,6 +691,111 @@ def generate_video_from_text(
     return process_video_response(operation)
 
 
+def extend_video(
+    client: genai.Client,
+    model: str,
+    prompt: str,
+    input_video_gcs_uri: str,
+    output_resolution: Optional[str],
+    compression_quality: Optional[str],
+    person_generation: str,
+    duration_seconds: int,
+    generate_audio: Optional[bool],
+    enhance_prompt: bool,
+    sample_count: int,
+    output_gcs_uri: Optional[str],
+    negative_prompt: Optional[str],
+    seed: Optional[int],
+) -> List[str]:
+    """
+    Extends a video using the Veo API.
+
+    Args:
+        client: genai.Client
+        model: model to be used
+        prompt: The text prompt for video extension.
+        input_video_gcs_uri: GCS URI of the video to extend.
+        output_resolution: The resolution of the generated video.
+        compression_quality: Compression quality i.e optimized vs lossless.
+        person_generation: Controls whether the model can generate people.
+        duration_seconds: The desired duration of the extension in seconds.
+        generate_audio: Flag to generate audio.
+        enhance_prompt: Whether to enhance the prompt automatically.
+        sample_count: The number of video samples to generate.
+        output_gcs_uri: output gcs url to store the video.
+        negative_prompt: An optional prompt to guide the model.
+        seed: An optional seed for reproducible generation.
+
+    Returns:
+        A list of file paths to the generated videos.
+    """
+    if compression_quality == "lossless" and not output_gcs_uri:
+        raise APIInputError(
+            "output_gcs_uri must be passed for lossless video generation."
+        )
+
+    if compression_quality == "lossless":
+        compression_quality_type = types.VideoCompressionQuality.LOSSLESS
+    elif compression_quality == "optimized":
+        compression_quality_type = types.VideoCompressionQuality.OPTIMIZED
+    else:
+        raise APIInputError(f"Incorrect compression_quality type {compression_quality}")
+
+    temp_config = {
+        "person_generation": person_generation,
+        "compression_quality": compression_quality_type,
+        "duration_seconds": duration_seconds,
+        "enhance_prompt": enhance_prompt,
+        "number_of_videos": sample_count,
+        "negative_prompt": negative_prompt,
+        "seed": seed,
+    }
+
+    if output_gcs_uri:
+        valid_bucket, validation_message = validate_gcs_uri_and_image(
+            output_gcs_uri, False
+        )
+        if not valid_bucket:
+            if (
+                "not exist or is inaccessible" in validation_message
+                or "resource not found" in validation_message
+            ):
+                raise APIExecutionError(validation_message)
+            else:
+                raise APIInputError(validation_message)
+        temp_config["output_gcs_uri"] = output_gcs_uri
+
+    if re.search(
+        r"veo-3\.",
+        model.value if isinstance(model, object) and hasattr(model, "value") else model,
+    ):
+        if generate_audio:
+            temp_config["generate_audio"] = generate_audio
+        else:
+            temp_config["generate_audio"] = False
+        temp_config["resolution"] = output_resolution
+
+    config = GenerateVideosConfig(**temp_config)
+    logger.info(f"Config for video extension: {config}")
+
+    input_video = types.Video(uri=input_video_gcs_uri, mime_type="video/mp4")
+
+    logger.info("Sending request to Veo API for video extension...")
+    operation = client.models.generate_videos(
+        model=model, prompt=prompt, config=config, video=input_video
+    )
+
+    operation_count = 0
+    while not operation.done:
+        time.sleep(20)
+        operation = client.operations.get(operation)
+        operation_count += 1
+        logger.info(f"Polling extension operation (attempt {operation_count})...")
+
+    logger.info(f"Extension operation completed with status: {operation.done}")
+    return process_video_response(operation)
+
+
 def media_file_to_genai_part(file_path: str, mime_type: str) -> types.Part:
     """Reads a media file (image, audio, or video) and converts it to a genai.types.Part.
 

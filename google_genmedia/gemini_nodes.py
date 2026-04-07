@@ -38,13 +38,17 @@ logger = get_node_logger(__name__)
 
 class GeminiNode25(VertexAIClient):
     def __init__(
-        self, gcp_project_id: Optional[str] = None, gcp_region: Optional[str] = None
+        self,
+        gcp_project_id: Optional[str] = None,
+        gcp_region: Optional[str] = None,
+        api_key: Optional[str] = None,
     ):
         """
         Initializes the Gemini client.
         Args:
             gcp_project_id: The GCP project ID. If provided, overrides metadata lookup.
             gcp_region: The GCP region. If provided, overrides metadata lookup.
+            api_key: The Google GenAI API Key. If provided, prioritizes over environment variable.
 
         Raises:
             ConfigurationError: If client initialization fails.
@@ -53,9 +57,10 @@ class GeminiNode25(VertexAIClient):
             gcp_project_id=gcp_project_id,
             gcp_region=gcp_region,
             user_agent=GEMINI_USER_AGENT,
+            api_key=api_key,
         )
         logger.info(
-            f"genai.Client initialized for Vertex AI project: {self.project_id}, location: {self.region}"
+            f"genai.Client initialized for Gemini API Key or Vertex AI project: {gcp_project_id}, location: {gcp_region}"
         )
 
     @classmethod
@@ -175,6 +180,13 @@ class GeminiNode25(VertexAIClient):
                         "tooltip": "GCP region for Vertex AI API",
                     },
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
             },
         }
 
@@ -208,6 +220,7 @@ class GeminiNode25(VertexAIClient):
         audio_mime_type: str = "audio/mp3",
         gcp_project_id: str = "",
         gcp_region: str = "",
+        api_key: str = "",
     ) -> Tuple[str,]:
         """Generates content using the Gemini API based on the provided prompt and parameters.
 
@@ -257,6 +270,7 @@ class GeminiNode25(VertexAIClient):
             audio_mime_type (str, optional): MIME type of the audio file. Defaults to "audio/mp3".
             gcp_project_id (str, optional): GCP project ID to use for Vertex AI. Defaults to "".
             gcp_region (str, optional): GCP region to use for Vertex AI. Defaults to "".
+            api_key (str, optional): Google GenAI API Key. Defaults to "".
 
         Returns:
             tuple: A tuple containing the generated text as the first element. If content
@@ -270,7 +284,12 @@ class GeminiNode25(VertexAIClient):
         try:
             init_project_id = gcp_project_id if gcp_project_id else None
             init_region = gcp_region if gcp_region else None
-            self.__init__(gcp_project_id=init_project_id, gcp_region=init_region)
+            init_api_key = api_key if api_key else None
+            self.__init__(
+                gcp_project_id=init_project_id,
+                gcp_region=init_region,
+                api_key=init_api_key,
+            )
         except ConfigurationError as e:
             raise RuntimeError(f"Gemini API Error: {e}") from e
         except Exception as e:

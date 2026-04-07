@@ -27,9 +27,11 @@ from .google_genmedia import (
     imagen3_nodes,
     imagen4_nodes,
     lyria2_nodes,
+    lyria3_nodes,
     veo2_nodes,
     veo3_nodes,
     virtual_try_on,
+    tts_nodes,
 )
 
 # Since ComfyUI uses a root logger with fileConfig(), setting up the custom logger with fileConfig()
@@ -110,9 +112,11 @@ node_modules = [
     imagen3_nodes,
     imagen4_nodes,
     lyria2_nodes,
+    lyria3_nodes,
     veo2_nodes,
     veo3_nodes,
     virtual_try_on,
+    tts_nodes,
 ]
 
 for module in node_modules:

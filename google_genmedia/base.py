@@ -36,6 +36,7 @@ class VertexAIClient:
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
         user_agent: Optional[str] = None,
+        api_key: Optional[str] = None,
     ):
         """
         Initializes the client.
@@ -44,13 +45,14 @@ class VertexAIClient:
             gcp_project_id: The GCP project ID. If provided, overrides metadata lookup.
             gcp_region: The GCP region. If provided, overrides metadata lookup.
             user_agent: The user agent string for the client.
+            api_key: The Google GenAI API Key. If provided, prioritizes over environment variable.
 
         Raises:
             ConfigurationError: If configuration fails.
         """
-        api_key = os.environ.get("GEMINI_API_KEY")
+        effective_api_key = api_key or os.environ.get("GEMINI_API_KEY")
 
-        if api_key:
+        if effective_api_key:
             logger.info("Initializing genai.Client with API Key authentication.")
             if user_agent:
                 http_options = genai.types.HttpOptions(headers={"user-agent": user_agent})
@@ -58,7 +60,7 @@ class VertexAIClient:
                 http_options = None
             try:
                 self.client = genai.Client(
-                    api_key=api_key,
+                    api_key=effective_api_key,
                     http_options=http_options,
                 )
             except Exception as e:

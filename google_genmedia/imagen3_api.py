@@ -33,13 +33,19 @@ class Imagen3API(VertexAIClient):
     A class to interact with the Imagen API for image generation.
     """
 
-    def __init__(self, project_id: Optional[str] = None, region: Optional[str] = None):
+    def __init__(
+        self,
+        project_id: Optional[str] = None,
+        region: Optional[str] = None,
+        api_key: Optional[str] = None,
+    ):
         """
         Initializes the Imagen3API client.
 
         Args:
             project_id: The GCP project ID. If None, it will be retrieved from GCP metadata.
             region: The GCP region. If None, it will be retrieved from GCP metadata.
+            api_key: The Google GenAI API Key. If provided, prioritizes over environment variable.
 
         Raises:
             ConfigurationError: If GCP Project or region cannot be determined or client initialization fails.
@@ -48,6 +54,7 @@ class Imagen3API(VertexAIClient):
             gcp_project_id=project_id,
             gcp_region=region,
             user_agent=IMAGEN3_USER_AGENT,
+            api_key=api_key,
         )
 
     def generate_image_from_text(

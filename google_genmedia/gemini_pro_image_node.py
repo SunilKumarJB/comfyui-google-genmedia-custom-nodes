@@ -132,11 +132,18 @@ class Gemini3ProImage:
                         "placeholder": "Optional system instruction for the model",
                     },
                 ),
+                "api_key": (
+                    "STRING",
+                    {
+                        "default": "",
+                        "tooltip": "Google GenAI API Key (prioritized over environment variable)",
+                    },
+                ),
                 "gcp_project_id": (
                     "STRING",
                     {
                         "default": "",
-                        "tooltip": "GCP project id where Vertex AI API will query Gemini",
+                        "tooltip": "GCP project id where Vertex AI API will query Gemini Pro Image",
                     },
                 ),
                 "gcp_region": (
@@ -176,6 +183,7 @@ class Gemini3ProImage:
         image4: Optional[torch.Tensor] = None,
         image5: Optional[torch.Tensor] = None,
         image6: Optional[torch.Tensor] = None,
+        api_key: str = "",
         gcp_project_id: Optional[str] = None,
         gcp_region: Optional[str] = None,
     ) -> Tuple[torch.Tensor,]:
@@ -206,6 +214,7 @@ class Gemini3ProImage:
             image4: An optional fourth input image tensor. Defaults to None.
             image5: An optional fifth input image tensor. Defaults to None.
             image6: An optional sixth input image tensor. Defaults to None.
+            api_key: Google GenAI API Key.
             gcp_project_id: The GCP project ID.
             gcp_region: The GCP region.
 
@@ -217,12 +226,13 @@ class Gemini3ProImage:
             RuntimeError: If API configuration fails, or if image generation encounters an API error.
         """
         try:
+            init_api_key = api_key if api_key else None
             gemini_pro_image_api = GeminiProImageAPI(
-                project_id=gcp_project_id, region=gcp_region
+                project_id=gcp_project_id, region=gcp_region, api_key=init_api_key
             )
         except ConfigurationError as e:
             raise RuntimeError(
-                f"Gemini Flash Image API Configuration Error: {e}"
+                f"Gemini Pro Image API Configuration Error: {e}"
             ) from e
 
         output_mime_type = "image/" + output_mime_type.lower()
@@ -265,7 +275,7 @@ class Gemini3ProImage:
 
         if not pil_images:
             raise RuntimeError(
-                "Imagen API failed to generate images or generated no valid images."
+                "Gemini Pro Image API failed to generate images or generated no valid images."
             )
 
         output_tensors: List[torch.Tensor] = []
@@ -279,6 +289,237 @@ class Gemini3ProImage:
         return (batched_images_tensor,)
 
 
-NODE_CLASS_MAPPINGS = {"Gemini3ProImage": Gemini3ProImage}
+class Gemini3ProImageEditing:
+    """
+    A ComfyUI node for editing images (inpainting, outpainting) using Gemini 3 Pro.
+    """
 
-NODE_DISPLAY_NAME_MAPPINGS = {"Gemini3ProImage": "Gemini 3 Pro Image (🍌)"}
+    @classmethod
+    def INPUT_TYPES(cls) -> Dict[str, Dict[str, Any]]:
+        return {
+            "required": {
+                "model": (
+                    [model.name for model in GeminiProImageModel],
+                    {"default": GeminiProImageModel.GEMINI_3_PRO_IMAGE.name},
+                ),
+                "prompt": ("STRING", {"multiline": True, "default": "Describe the edits"}),
+                "base_image": ("IMAGE",),
+                "edit_mode": (["INPAINT", "OUTPAINT", "EDIT"], {"default": "INPAINT"}),
+            },
+            "optional": {
+                "mask": ("MASK",),
+                "output_mime_type": (["PNG", "JPEG"], {"default": "PNG"}),
+                "temperature": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "top_p": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "top_k": ("INT", {"default": 32, "min": 1, "max": 64}),
+                "harassment_threshold": (
+                    [threshold_option.name for threshold_option in ThresholdOptions],
+                    {"default": ThresholdOptions.BLOCK_MEDIUM_AND_ABOVE.name},
+                ),
+                "hate_speech_threshold": (
+                    [threshold_option.name for threshold_option in ThresholdOptions],
+                    {"default": ThresholdOptions.BLOCK_MEDIUM_AND_ABOVE.name},
+                ),
+                "sexually_explicit_threshold": (
+                    [threshold_option.name for threshold_option in ThresholdOptions],
+                    {"default": ThresholdOptions.BLOCK_MEDIUM_AND_ABOVE.name},
+                ),
+                "dangerous_content_threshold": (
+                    [threshold_option.name for threshold_option in ThresholdOptions],
+                    {"default": ThresholdOptions.BLOCK_MEDIUM_AND_ABOVE.name},
+                ),
+                "system_instruction": ("STRING", {"multiline": True, "default": ""}),
+                "api_key": ("STRING", {"default": ""}),
+                "gcp_project_id": ("STRING", {"default": ""}),
+                "gcp_region": ("STRING", {"default": "global"}),
+            },
+        }
+
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("Edited Image",)
+    FUNCTION = "edit"
+    CATEGORY = "Google AI/GeminiProImage"
+
+    def edit(
+        self,
+        model: str,
+        prompt: str,
+        base_image: torch.Tensor,
+        edit_mode: str,
+        mask: Optional[torch.Tensor] = None,
+        output_mime_type: str = "PNG",
+        temperature: float = 0.7,
+        top_p: float = 1.0,
+        top_k: int = 32,
+        hate_speech_threshold: str = "BLOCK_MEDIUM_AND_ABOVE",
+        harassment_threshold: str = "BLOCK_MEDIUM_AND_ABOVE",
+        sexually_explicit_threshold: str = "BLOCK_MEDIUM_AND_ABOVE",
+        dangerous_content_threshold: str = "BLOCK_MEDIUM_AND_ABOVE",
+        system_instruction: str = "",
+        api_key: str = "",
+        gcp_project_id: Optional[str] = None,
+        gcp_region: Optional[str] = None,
+    ) -> Tuple[torch.Tensor,]:
+        try:
+            init_api_key = api_key if api_key else None
+            api = GeminiProImageAPI(project_id=gcp_project_id, region=gcp_region, api_key=init_api_key)
+        except ConfigurationError as e:
+            raise RuntimeError(f"Gemini API Configuration Error: {e}") from e
+
+        mime_type = "image/" + output_mime_type.lower()
+
+        # Handle mask conversion if provided (ComfyUI masks are typically [B, H, W])
+        mask_tensor = None
+        if mask is not None:
+            if len(mask.shape) == 3: # [B, H, W]
+                mask_tensor = mask.unsqueeze(-1).repeat(1, 1, 1, 3) # [B, H, W, 3]
+            else:
+                mask_tensor = mask
+
+        try:
+            pil_images = api.edit_image(
+                model=model,
+                prompt=prompt,
+                base_image=base_image,
+                mask=mask_tensor,
+                edit_mode=edit_mode,
+                output_mime_type=mime_type,
+                temperature=temperature,
+                top_p=top_p,
+                top_k=top_k,
+                hate_speech_threshold=hate_speech_threshold,
+                harassment_threshold=harassment_threshold,
+                sexually_explicit_threshold=sexually_explicit_threshold,
+                dangerous_content_threshold=dangerous_content_threshold,
+                system_instruction=system_instruction,
+            )
+        except Exception as e:
+            raise RuntimeError(f"Image editing failed: {e}") from e
+
+        output_tensors: List[torch.Tensor] = []
+        for img in pil_images:
+            img = img.convert("RGB")
+            img_np = np.array(img).astype(np.float32) / 255.0
+            img_tensor = torch.from_numpy(img_np)[None,]
+            output_tensors.append(img_tensor)
+
+        return (torch.cat(output_tensors, dim=0),)
+
+
+class Gemini3ProControlledImage:
+    """
+    A ComfyUI node for generating images with control signals (e.g. Canny) using Gemini 3 Pro.
+    """
+
+    @classmethod
+    def INPUT_TYPES(cls) -> Dict[str, Dict[str, Any]]:
+        return {
+            "required": {
+                "model": (
+                    [model.name for model in GeminiProImageModel],
+                    {"default": GeminiProImageModel.GEMINI_3_PRO_IMAGE.name},
+                ),
+                "prompt": ("STRING", {"multiline": True, "default": "A vivid landscape"}),
+                "control_image": ("IMAGE",),
+                "control_type": (["CANNY", "FACE_MESH"], {"default": "CANNY"}),
+            },
+            "optional": {
+                "output_mime_type": (["PNG", "JPEG"], {"default": "PNG"}),
+                "temperature": ("FLOAT", {"default": 0.7, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "top_p": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 1.0, "step": 0.01}),
+                "top_k": ("INT", {"default": 32, "min": 1, "max": 64}),
+                "harassment_threshold": (
+                    [threshold_option.name for threshold_option in ThresholdOptions],
+                    {"default": ThresholdOptions.BLOCK_MEDIUM_AND_ABOVE.name},
+                ),
+                "hate_speech_threshold": (
+                    [threshold_option.name for threshold_option in ThresholdOptions],
+                    {"default": ThresholdOptions.BLOCK_MEDIUM_AND_ABOVE.name},
+                ),
+                "sexually_explicit_threshold": (
+                    [threshold_option.name for threshold_option in ThresholdOptions],
+                    {"default": ThresholdOptions.BLOCK_MEDIUM_AND_ABOVE.name},
+                ),
+                "dangerous_content_threshold": (
+                    [threshold_option.name for threshold_option in ThresholdOptions],
+                    {"default": ThresholdOptions.BLOCK_MEDIUM_AND_ABOVE.name},
+                ),
+                "system_instruction": ("STRING", {"multiline": True, "default": ""}),
+                "api_key": ("STRING", {"default": ""}),
+                "gcp_project_id": ("STRING", {"default": ""}),
+                "gcp_region": ("STRING", {"default": "global"}),
+            },
+        }
+
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("Controlled Image",)
+    FUNCTION = "generate"
+    CATEGORY = "Google AI/GeminiProImage"
+
+    def generate(
+        self,
+        model: str,
+        prompt: str,
+        control_image: torch.Tensor,
+        control_type: str,
+        output_mime_type: str = "PNG",
+        temperature: float = 0.7,
+        top_p: float = 1.0,
+        top_k: int = 32,
+        hate_speech_threshold: str = "BLOCK_MEDIUM_AND_ABOVE",
+        harassment_threshold: str = "BLOCK_MEDIUM_AND_ABOVE",
+        sexually_explicit_threshold: str = "BLOCK_MEDIUM_AND_ABOVE",
+        dangerous_content_threshold: str = "BLOCK_MEDIUM_AND_ABOVE",
+        system_instruction: str = "",
+        api_key: str = "",
+        gcp_project_id: Optional[str] = None,
+        gcp_region: Optional[str] = None,
+    ) -> Tuple[torch.Tensor,]:
+        try:
+            init_api_key = api_key if api_key else None
+            api = GeminiProImageAPI(project_id=gcp_project_id, region=gcp_region, api_key=init_api_key)
+        except ConfigurationError as e:
+            raise RuntimeError(f"Gemini API Configuration Error: {e}") from e
+
+        mime_type = "image/" + output_mime_type.lower()
+
+        try:
+            pil_images = api.generate_controlled_image(
+                model=model,
+                prompt=prompt,
+                control_image=control_image,
+                control_type=control_type,
+                output_mime_type=mime_type,
+                temperature=temperature,
+                top_p=top_p,
+                top_k=top_k,
+                hate_speech_threshold=hate_speech_threshold,
+                harassment_threshold=harassment_threshold,
+                sexually_explicit_threshold=sexually_explicit_threshold,
+                dangerous_content_threshold=dangerous_content_threshold,
+                system_instruction=system_instruction,
+            )
+        except Exception as e:
+            raise RuntimeError(f"Controlled image generation failed: {e}") from e
+
+        output_tensors: List[torch.Tensor] = []
+        for img in pil_images:
+            img = img.convert("RGB")
+            img_np = np.array(img).astype(np.float32) / 255.0
+            img_tensor = torch.from_numpy(img_np)[None,]
+            output_tensors.append(img_tensor)
+
+        return (torch.cat(output_tensors, dim=0),)
+
+
+NODE_CLASS_MAPPINGS = {
+    "Gemini3ProImage": Gemini3ProImage,
+    "Gemini3ProImageEditing": Gemini3ProImageEditing,
+    "Gemini3ProControlledImage": Gemini3ProControlledImage,
+}
+
+NODE_DISPLAY_NAME_MAPPINGS = {
+    "Gemini3ProImage": "Gemini 3 Pro Image",
+    "Gemini3ProImageEditing": "Gemini 3 Pro Image Editing (Inpaint/Outpaint)",
+    "Gemini3ProControlledImage": "Gemini 3 Pro Controlled Image (Canny/FaceMesh)",
+}
