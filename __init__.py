@@ -32,6 +32,7 @@ from .google_genmedia import (
     veo3_nodes,
     virtual_try_on,
     tts_nodes,
+    json_nodes,
 )
 
 # Since ComfyUI uses a root logger with fileConfig(), setting up the custom logger with fileConfig()
@@ -117,6 +118,7 @@ node_modules = [
     veo3_nodes,
     virtual_try_on,
     tts_nodes,
+    json_nodes,
 ]
 
 for module in node_modules:
