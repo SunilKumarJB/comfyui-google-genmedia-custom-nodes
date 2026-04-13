@@ -1,0 +1,2495 @@
+{
+  "id": "8355e89b-071c-4555-bb84-5844312f2ff3",
+  "revision": 0,
+  "last_node_id": 104,
+  "last_link_id": 124,
+  "nodes": [
+    {
+      "id": 6,
+      "type": "VeoVideoSaveAndPreview",
+      "pos": [
+        -617.5736452953583,
+        -229.24592579859257
+      ],
+      "size": [
+        287.275390625,
+        358.3424072265625
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video_paths",
+          "type": "VEO_VIDEO",
+          "link": 86
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "d2dc764c2c86ff8b7a9292314ee9d3841d6622be",
+        "Node name for S&R": "VeoVideoSaveAndPreview"
+      },
+      "widgets_values": [
+        true,
+        true,
+        false,
+        true,
+        "veo_video",
+        {
+          "hidden": false,
+          "paused": false,
+          "parameters": {}
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "type": "SaveImage",
+      "pos": [
+        -607.5939255086655,
+        -599.9706615433427
+      ],
+      "size": [
+        270,
+        270
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 85
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4"
+      },
+      "widgets_values": [
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": 48,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -1654.9331082252704,
+        -417.7440777031358
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": 111
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            81
+          ]
+        }
+      ],
+      "title": "Character_prompt",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "Extreme close-up shot of a rugged wasteland scavenger's face and upper torso. Their heavily scarred left cheek and forehead are visible, contrasted by the sleek, scratched, and wired metallic plates of a powerful mechanical right arm gripping a rifle stock 'just out of frame'. A dusty, worn gas mask hangs around their neck, its scratched polycarbonate visor reflecting hints of purple light. Their weary, determined eyes, squinting slightly, show intense focus, with detailed dark irises and constricted pupils. Fine wrinkles and pores are visible on their sun-baked skin. They wear a tattered, multi-layered outfit of distressed leather armor, grimy canvas, and rusted metal plates, each fiber and scratch distinct. Subtle grime is caked in the creases of their neck. --ar 16:9 --style raw --v 6.0 --q 2 --s 750 --cref https://image.url/scavenger-face.jpg --85mm lens, f/1.8, shallow depth of field, dramatic cinematic lighting, strong rim lighting from behind, detailed pores/skin texture, 8k resolution, photorealistic, cinematic color grading, muted desaturated tones with sharp purple highlights."
+      ]
+    },
+    {
+      "id": 49,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -1659.1474192781027,
+        -154.4553544491944
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": 113
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            84
+          ]
+        }
+      ],
+      "title": "Prop_prompt",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "Macro photography shot of a heavily rusted flare gun held by a partially visible, gloved mechanical hand. The gun's metal casing is pitted and flaking with deep orange and brown rust, showing severe corrosion and wear. Its grip, made of cracked, dark composite material, is worn smooth in places. From the barrel, a vibrant, ethereal cloud of bright purple plasma intensely glows and sputters, casting dynamic, sharp purple reflections onto the gun's rusted surface and the intricate joints of the mechanical fingers. Heat distortion shimmers around the plasma. Visible carbon scoring and grime around the barrel. --ar 16:9 --style raw --v 6.0 --q 2 --s 750 --cref https://image.url/mechanical-arm-hand.jpg --100mm macro lens, sharp focus, studio lighting emphasizing texture and glow, isolated, hyper-detailed, octane render, photorealistic."
+      ]
+    },
+    {
+      "id": 47,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -1647.488262011336,
+        -720.9691883555273
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": 110
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            80
+          ]
+        }
+      ],
+      "title": "Background_prompt",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "\"Ultra-wide shot of a deserted, sand-buried retro diner. Architectural details include broken large plate-glass windows allowing streams of golden hour sunlight to cut through the interior, illuminating thick dust motes dancing in the air. Booths are half-submerged in towering dunes of fine, wind-blown sand. The iconic checkered floor tiles are cracked and largely obscured. A derelict, leaning juke box half-covered in sand sits in the background, corroded and forgotten. Faded, peeling paint on walls and ceiling shows water damage. The vast scale of desolation and decay is palpable. --ar 16:9 --style raw --v 6.0 --q 2 --s 750 --24mm wide-angle lens, deep depth of field, volumetric lighting, cinematic composition, breathtaking scale, matte painting aesthetic, photorealistic, post-apocalyptic, desolate."
+      ]
+    },
+    {
+      "id": 50,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -1660.3029631231718,
+        128.69086350074508
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": 116
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            82
+          ]
+        }
+      ],
+      "title": "Storyboard_prompt",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "A single image acting as a cinematic storyboard triptych for a post-apocalyptic scene. The image is divided into three distinct panels within a 'film strip' layout, separated by thin black lines. \\nPanel 1 (Left, wide): A wide shot of the rugged scavenger, with their mechanical arm prominent, standing amidst sand dunes inside the derelict, sand-buried retro diner. The purple glow from their flare gun is visible as a small, intense point of light in their hand. Setting is oppressive and vast. \\nPanel 2 (Middle, close-up prop): A focused close-up on the rusted flare gun, held by the scavenger's hand (mechanical arm barely visible). The bright, sputtering purple plasma from the barrel illuminates the weapon's deep rust and intricate wear. \\nPanel 3 (Right, extreme close-up hero): An extreme close-up on the scavenger's grim, scarred face, their eyes intensely staring off-camera, with a subtle purple reflection from the flare gun dancing on their cheek and eye. The gas mask is still around their neck. \\n--ar 16:9 --style raw --v 6.0 --q 2 --s 750 --cinematic film strip layout, cohesive color palette (desaturated browns, oranges, and grays with a dominant vibrant purple accent), sequential art style, cinematic framing, post-apocalyptic aesthetic."
+      ]
+    },
+    {
+      "id": 51,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -1666.2307296199367,
+        425.8115634119392
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": 118
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            83
+          ]
+        }
+      ],
+      "title": "Veo_prompt",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "A close-up tracking shot on a rugged wasteland scavenger as they slowly shift their weight, tightening their grip on a rusted flare gun that pulses with bright purple plasma. The camera executes a slow, deliberate push-in from a medium close-up, focusing on their determined, scarred face and the intricate details of their mechanical arm. The gas mask hanging on their neck subtly sways. As they take a micro-step, fine particles of sand trickle from a nearby broken window frame, catching the light. The purple plasma from the flare gun flickers and intensifies, casting dynamic, soft purple light shifts across their face and the interior of the sand-filled retro diner. Dust motes drift and swirl gently in the ambient light beams. The scavenger's breath is visible as a subtle chest movement. --sora --runway --4k --cinematic motion, slow motion (120fps), hyper-realistic physics, realistic textures, seamless loop, dynamic lighting, subtle sand physics, plasma particle effects, atmospheric."
+      ]
+    },
+    {
+      "id": 98,
+      "type": "JSONToString",
+      "pos": [
+        -1894.6043138240907,
+        -697.5082255393393
+      ],
+      "size": [
+        143.1328125,
+        26
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 109
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            110
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONToString"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 99,
+      "type": "JSONToString",
+      "pos": [
+        -1927.366510227778,
+        -530.8925444590107
+      ],
+      "size": [
+        143.1328125,
+        26
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 112
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            111
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONToString"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 100,
+      "type": "JSONToString",
+      "pos": [
+        -1911.4756298774612,
+        -341.7441389276616
+      ],
+      "size": [
+        143.1328125,
+        26
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 114
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            113
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONToString"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 101,
+      "type": "JSONToString",
+      "pos": [
+        -1916.3067477044715,
+        -144.20449430560032
+      ],
+      "size": [
+        143.1328125,
+        26
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 115
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            116
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONToString"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 102,
+      "type": "JSONToString",
+      "pos": [
+        -1934.0152730161851,
+        55.22796393695116
+      ],
+      "size": [
+        143.1328125,
+        26
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 117
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            118
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONToString"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 92,
+      "type": "JSONGetValue",
+      "pos": [
+        -2634.671629387177,
+        -555.7895262346917
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 108
+        }
+      ],
+      "outputs": [
+        {
+          "name": "JSON",
+          "type": "JSON",
+          "links": [
+            119,
+            120,
+            121,
+            122,
+            123
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONGetValue"
+      },
+      "widgets_values": [
+        "prompts"
+      ]
+    },
+    {
+      "id": 94,
+      "type": "JSONGetValue",
+      "pos": [
+        -2258.5205123827923,
+        -558.536533530903
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 120
+        }
+      ],
+      "outputs": [
+        {
+          "name": "JSON",
+          "type": "JSON",
+          "links": [
+            112
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONGetValue"
+      },
+      "widgets_values": [
+        "character_prompt"
+      ]
+    },
+    {
+      "id": 95,
+      "type": "JSONGetValue",
+      "pos": [
+        -2249.3741513805317,
+        -394.15194906019946
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 121
+        }
+      ],
+      "outputs": [
+        {
+          "name": "JSON",
+          "type": "JSON",
+          "links": [
+            114
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONGetValue"
+      },
+      "widgets_values": [
+        "prop_prompt"
+      ]
+    },
+    {
+      "id": 93,
+      "type": "JSONGetValue",
+      "pos": [
+        -2257.1435974372785,
+        -731.4559198621281
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 119
+        }
+      ],
+      "outputs": [
+        {
+          "name": "JSON",
+          "type": "JSON",
+          "links": [
+            109
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONGetValue"
+      },
+      "widgets_values": [
+        "background_prompt"
+      ]
+    },
+    {
+      "id": 96,
+      "type": "JSONGetValue",
+      "pos": [
+        -2243.57619499366,
+        -230.36186724419358
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 122
+        }
+      ],
+      "outputs": [
+        {
+          "name": "JSON",
+          "type": "JSON",
+          "links": [
+            115
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONGetValue"
+      },
+      "widgets_values": [
+        "storyboard_prompt"
+      ]
+    },
+    {
+      "id": 97,
+      "type": "JSONGetValue",
+      "pos": [
+        -2243.8119588863824,
+        -74.63157613619222
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "json_data",
+          "type": "JSON",
+          "link": 123
+        }
+      ],
+      "outputs": [
+        {
+          "name": "JSON",
+          "type": "JSON",
+          "links": [
+            117
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+        "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+        "Node name for S&R": "JSONGetValue"
+      },
+      "widgets_values": [
+        "video_action_prompt"
+      ]
+    },
+    {
+      "id": 60,
+      "type": "PreviewAny",
+      "pos": [
+        -3005.9026767123596,
+        -211.0691763996067
+      ],
+      "size": [
+        422.9686681862579,
+        185.70733849368372
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 77
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 91,
+      "type": "a7454820-09e8-4043-81e9-6c806a7608a7",
+      "pos": [
+        -2935.5204063317065,
+        -445.43219327152735
+      ],
+      "size": [
+        210,
+        88
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "widget": {
+            "name": "string"
+          },
+          "link": 107
+        }
+      ],
+      "outputs": [
+        {
+          "name": "JSON",
+          "type": "JSON",
+          "links": [
+            108
+          ]
+        }
+      ],
+      "properties": {
+        "proxyWidgets": [
+          [
+            "-1",
+            "string"
+          ]
+        ],
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 70,
+      "type": "c0de7e4a-2a4d-430c-99f6-1c9bbeaefa43",
+      "pos": [
+        -3258.2951700007998,
+        -339.552461061459
+      ],
+      "size": [
+        210,
+        88
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "input_text",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 76
+        }
+      ],
+      "outputs": [
+        {
+          "name": "generated_output",
+          "type": "STRING",
+          "links": [
+            77,
+            107
+          ]
+        }
+      ],
+      "properties": {
+        "proxyWidgets": [
+          [
+            "-1",
+            "prompt"
+          ]
+        ],
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 62,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        -3735.4892322209444,
+        -347.2119325873582
+      ],
+      "size": [
+        400,
+        200
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            76
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4",
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "A guy in leather jacket driving a sports bike in a desert during sunset "
+      ]
+    },
+    {
+      "id": 71,
+      "type": "69c0d412-0fe3-4b85-8a71-b61308027bae",
+      "pos": [
+        -1000.2196854720146,
+        -359.58419519762987
+      ],
+      "size": [
+        218.3046875,
+        348
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "background_prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 80
+        },
+        {
+          "label": "character_prompt",
+          "name": "prompt_1",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt_1"
+          },
+          "link": 81
+        },
+        {
+          "label": "Storyboard_prompt",
+          "name": "prompt_2",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt_2"
+          },
+          "link": 82
+        },
+        {
+          "label": "veo_prompt",
+          "name": "prompt_3",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt_3"
+          },
+          "link": 83
+        },
+        {
+          "label": "prop_prompt",
+          "name": "prompt_4",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt_4"
+          },
+          "link": 84
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Generated Image",
+          "type": "IMAGE",
+          "links": [
+            85
+          ]
+        },
+        {
+          "name": "video_paths",
+          "type": "VEO_VIDEO",
+          "links": [
+            86
+          ]
+        }
+      ],
+      "properties": {
+        "proxyWidgets": [
+          [
+            "-1",
+            "prompt"
+          ],
+          [
+            "-1",
+            "prompt_1"
+          ],
+          [
+            "-1",
+            "prompt_2"
+          ],
+          [
+            "-1",
+            "prompt_3"
+          ],
+          [
+            "-1",
+            "prompt_4"
+          ],
+          [
+            "5",
+            "seed"
+          ]
+        ],
+        "cnr_id": "comfy-core",
+        "ver": "0.16.4"
+      },
+      "widgets_values": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      76,
+      62,
+      0,
+      70,
+      0,
+      "STRING"
+    ],
+    [
+      77,
+      70,
+      0,
+      60,
+      0,
+      "STRING"
+    ],
+    [
+      80,
+      47,
+      0,
+      71,
+      0,
+      "STRING"
+    ],
+    [
+      81,
+      48,
+      0,
+      71,
+      1,
+      "STRING"
+    ],
+    [
+      82,
+      50,
+      0,
+      71,
+      2,
+      "STRING"
+    ],
+    [
+      83,
+      51,
+      0,
+      71,
+      3,
+      "STRING"
+    ],
+    [
+      84,
+      49,
+      0,
+      71,
+      4,
+      "STRING"
+    ],
+    [
+      85,
+      71,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ],
+    [
+      86,
+      71,
+      1,
+      6,
+      0,
+      "VEO_VIDEO"
+    ],
+    [
+      107,
+      70,
+      0,
+      91,
+      0,
+      "STRING"
+    ],
+    [
+      108,
+      91,
+      0,
+      92,
+      0,
+      "JSON"
+    ],
+    [
+      109,
+      93,
+      0,
+      98,
+      0,
+      "JSON"
+    ],
+    [
+      110,
+      98,
+      0,
+      47,
+      0,
+      "STRING"
+    ],
+    [
+      111,
+      99,
+      0,
+      48,
+      0,
+      "STRING"
+    ],
+    [
+      112,
+      94,
+      0,
+      99,
+      0,
+      "JSON"
+    ],
+    [
+      113,
+      100,
+      0,
+      49,
+      0,
+      "STRING"
+    ],
+    [
+      114,
+      95,
+      0,
+      100,
+      0,
+      "JSON"
+    ],
+    [
+      115,
+      96,
+      0,
+      101,
+      0,
+      "JSON"
+    ],
+    [
+      116,
+      101,
+      0,
+      50,
+      0,
+      "STRING"
+    ],
+    [
+      117,
+      97,
+      0,
+      102,
+      0,
+      "JSON"
+    ],
+    [
+      118,
+      102,
+      0,
+      51,
+      0,
+      "STRING"
+    ],
+    [
+      119,
+      92,
+      0,
+      93,
+      0,
+      "JSON"
+    ],
+    [
+      120,
+      92,
+      0,
+      94,
+      0,
+      "JSON"
+    ],
+    [
+      121,
+      92,
+      0,
+      95,
+      0,
+      "JSON"
+    ],
+    [
+      122,
+      92,
+      0,
+      96,
+      0,
+      "JSON"
+    ],
+    [
+      123,
+      92,
+      0,
+      97,
+      0,
+      "JSON"
+    ]
+  ],
+  "groups": [],
+  "definitions": {
+    "subgraphs": [
+      {
+        "id": "c0de7e4a-2a4d-430c-99f6-1c9bbeaefa43",
+        "version": 1,
+        "state": {
+          "lastGroupId": 0,
+          "lastNodeId": 104,
+          "lastLinkId": 124,
+          "lastRerouteId": 0
+        },
+        "revision": 0,
+        "config": {},
+        "name": "scene_prompt_rewriter",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            -3726.00402795115,
+            -147.84087130570424,
+            120,
+            60
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            -2649.221974553365,
+            -147.84087130570424,
+            139.908203125,
+            60
+          ]
+        },
+        "inputs": [
+          {
+            "id": "2c782ff5-8a2d-4ad8-898b-15cf8c649467",
+            "name": "prompt",
+            "type": "STRING",
+            "linkIds": [
+              74
+            ],
+            "localized_name": "prompt",
+            "label": "input_text",
+            "pos": [
+              -3626.00402795115,
+              -127.84087130570424
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "27ce8f38-c63a-4d17-bba3-b049c69256e6",
+            "name": "generated_output",
+            "type": "STRING",
+            "linkIds": [
+              75
+            ],
+            "localized_name": "generated_output",
+            "pos": [
+              -2629.221974553365,
+              -127.84087130570424
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 68,
+            "type": "GeminiNode25",
+            "pos": [
+              -3109.221974553365,
+              -425.84087130570424
+            ],
+            "size": [
+              400,
+              646
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "prompt",
+                "name": "prompt",
+                "type": "STRING",
+                "widget": {
+                  "name": "prompt"
+                },
+                "link": 74
+              },
+              {
+                "localized_name": "system_instruction",
+                "name": "system_instruction",
+                "shape": 7,
+                "type": "STRING",
+                "widget": {
+                  "name": "system_instruction"
+                },
+                "link": 73
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "generated_output",
+                "name": "generated_output",
+                "type": "STRING",
+                "links": [
+                  75
+                ]
+              }
+            ],
+            "properties": {
+              "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+              "ver": "d2dc764c2c86ff8b7a9292314ee9d3841d6622be",
+              "Node name for S&R": "GeminiNode25"
+            },
+            "widgets_values": [
+              "",
+              "GEMINI_FLASH",
+              1,
+              8192,
+              1,
+              32,
+              1,
+              "",
+              "text/plain",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "",
+              "",
+              "image/png",
+              "",
+              "video/mp4",
+              "",
+              "audio/mp3",
+              "",
+              "",
+              ""
+            ]
+          },
+          {
+            "id": 69,
+            "type": "PrimitiveStringMultiline",
+            "pos": [
+              -3546.00402795115,
+              -37.42295313589395
+            ],
+            "size": [
+              400,
+              200
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [],
+            "outputs": [
+              {
+                "localized_name": "STRING",
+                "name": "STRING",
+                "type": "STRING",
+                "links": [
+                  73
+                ]
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.16.4",
+              "Node name for S&R": "PrimitiveStringMultiline"
+            },
+            "widgets_values": [
+              "Act as an expert AI Prompt Engineer specializing in hyper-realistic, cinematic generation for AI image tools (Midjourney v6, Stable Diffusion) and AI video tools (Google Veo, Sora, Runway).\n\nMy core concept is: [Insert your basic idea here, e.g., A cybernetic samurai in a neon-lit Tokyo holding a glowing katana, preparing for battle].\n\nBased on my concept, generate 5 distinct, highly detailed, and optimized prompts following the exact structures and guidelines below.\n\nYou must output your final response STRICTLY as a valid JSON object. Do not include any conversational text before or after the JSON.\n\nUse the following JSON structure:\n```json\n{\n\"concept\": \"A brief summary of the core concept\",\n\"prompts\": {\n\"character_prompt\": \"Write a prompt for an extreme close-up or medium close-up shot of the hero. You must capture the complete characteristics of the character. Include: Exact facial structure, eye details, hair dynamics, specific emotional expression, physical build, unique markings/scars, and complete details of clothing/armor layers and materials (e.g., leather grain, metallic scuffs). Photography tags: 85mm lens, f/1.8, shallow depth of field, dramatic cinematic lighting, rim lighting, detailed pores/skin texture, 8k resolution, photorealistic, cinematic color grading.\",\n\"prop_prompt\": \"Write a prompt focusing entirely on the primary weapon, tool, or object the hero interacts with. You must capture the complete characteristics of the prop. Include: Overall shape, specific dimensions/scale, intricate textures, signs of wear and tear, material finishes (e.g., brushed steel, oxidized copper), specific colors, glowing elements, engravings, and how it catches the light. Photography tags: Macro photography, 100mm macro lens, sharp focus, studio lighting or dramatic environmental shadows, hyper-detailed, octane render.\",\n\"background_prompt\": \"Write a prompt for the environment where the action takes place. Include: Architectural details, weather conditions, time of day, atmosphere, and scale. Photography tags: Wide-angle lens, 24mm, deep depth of field, volumetric lighting, cinematic composition, breathtaking scale, matte painting aesthetic, photorealistic.\",\n\"storyboard_prompt\": \"Write a prompt designed to generate a single, unified keyframe image that acts as a cinematic movie storyboard. Include: Instructions for a single cohesive frame capturing the peak moment of action or tension, effectively integrating the character, prop, and background into one compelling composition without any split panels. Photography tags: Cinematic film still, single keyframe, dynamic camera angle, cohesive color palette, dramatic cinematic framing, rule of thirds, photorealistic.\",\n\"video_action_prompt\": \"Write a prompt optimized for Google Veo bringing the scene to life. Crucial: The action must be specifically directed to fit and resolve perfectly within an 8-second video duration. Include: Specific and concise camera movement (e.g., smooth tracking shot pushing in, slow pan), dynamic but contained subject movement that tells a complete mini-narrative in exactly 8 seconds, physics (flowing cloth, particle effects), and how the lighting shifts during the brief motion. Video tags: Cinematic motion, Google Veo prompt, 8-second duration pacing, fluid realistic physics, cohesive action, 4k resolution.\"\n}\n}\n```"
+            ]
+          }
+        ],
+        "groups": [],
+        "links": [
+          {
+            "id": 73,
+            "origin_id": 69,
+            "origin_slot": 0,
+            "target_id": 68,
+            "target_slot": 1,
+            "type": "STRING"
+          },
+          {
+            "id": 74,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 68,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 75,
+            "origin_id": 68,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "STRING"
+          }
+        ],
+        "extra": {
+          "workflowRendererVersion": "LG"
+        }
+      },
+      {
+        "id": "69c0d412-0fe3-4b85-8a71-b61308027bae",
+        "version": 1,
+        "state": {
+          "lastGroupId": 0,
+          "lastNodeId": 104,
+          "lastLinkId": 124,
+          "lastRerouteId": 0
+        },
+        "revision": 0,
+        "config": {},
+        "name": "Video_generator_workflow",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            -1628.1631326530942,
+            -380.23916587726217,
+            154.3046875,
+            140
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            512.308906979539,
+            -350.23916587726217,
+            137.646484375,
+            80
+          ]
+        },
+        "inputs": [
+          {
+            "id": "252f09a8-c606-4585-b6f5-1c317da0b1e6",
+            "name": "prompt",
+            "type": "STRING",
+            "linkIds": [
+              51
+            ],
+            "localized_name": "prompt",
+            "label": "background_prompt",
+            "pos": [
+              -1493.8584451530942,
+              -360.23916587726217
+            ]
+          },
+          {
+            "id": "442fcbca-879c-4ebc-a49f-c372bb40fba6",
+            "name": "prompt_1",
+            "type": "STRING",
+            "linkIds": [
+              53
+            ],
+            "localized_name": "prompt_1",
+            "label": "character_prompt",
+            "pos": [
+              -1493.8584451530942,
+              -340.23916587726217
+            ]
+          },
+          {
+            "id": "f1f802b9-15b3-44ba-8c01-af85b6eb5be7",
+            "name": "prompt_2",
+            "type": "STRING",
+            "linkIds": [
+              55
+            ],
+            "localized_name": "prompt_2",
+            "label": "Storyboard_prompt",
+            "pos": [
+              -1493.8584451530942,
+              -320.23916587726217
+            ]
+          },
+          {
+            "id": "1b60580c-9044-4e6a-bd14-16e44849abd5",
+            "name": "prompt_3",
+            "type": "STRING",
+            "linkIds": [
+              56
+            ],
+            "localized_name": "prompt_3",
+            "label": "veo_prompt",
+            "pos": [
+              -1493.8584451530942,
+              -300.23916587726217
+            ]
+          },
+          {
+            "id": "593f7edb-1292-46a8-9ea7-6e893781ef31",
+            "name": "prompt_4",
+            "type": "STRING",
+            "linkIds": [
+              54
+            ],
+            "localized_name": "prompt_4",
+            "label": "prop_prompt",
+            "pos": [
+              -1493.8584451530942,
+              -280.23916587726217
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "65b5908f-d6bb-4032-b600-02c1830e28fe",
+            "name": "Generated Image",
+            "type": "IMAGE",
+            "linkIds": [
+              28
+            ],
+            "localized_name": "Generated Image",
+            "pos": [
+              532.308906979539,
+              -330.23916587726217
+            ]
+          },
+          {
+            "id": "d72d239e-7a68-4f73-a216-879552ded78e",
+            "name": "video_paths",
+            "type": "VEO_VIDEO",
+            "linkIds": [
+              4
+            ],
+            "localized_name": "video_paths",
+            "pos": [
+              532.308906979539,
+              -310.23916587726217
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 8,
+            "type": "Gemini3ProImage",
+            "pos": [
+              -1448.1631326530942,
+              -1360.851848685877
+            ],
+            "size": [
+              395.9910156250003,
+              710.8121093750001
+            ],
+            "flags": {},
+            "order": 3,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "image1",
+                "name": "image1",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image2",
+                "name": "image2",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image3",
+                "name": "image3",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image4",
+                "name": "image4",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image5",
+                "name": "image5",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image6",
+                "name": "image6",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "prompt",
+                "name": "prompt",
+                "type": "STRING",
+                "widget": {
+                  "name": "prompt"
+                },
+                "link": 51
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "Generated Image",
+                "name": "Generated Image",
+                "type": "IMAGE",
+                "links": [
+                  7,
+                  14
+                ]
+              }
+            ],
+            "title": "Background_scene_generation",
+            "properties": {
+              "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+              "ver": "d2dc764c2c86ff8b7a9292314ee9d3841d6622be",
+              "Node name for S&R": "Gemini3ProImage"
+            },
+            "widgets_values": [
+              "GEMINI_3_PRO_IMAGE",
+              "",
+              "16:9",
+              "1K",
+              "PNG",
+              0.7,
+              1,
+              32,
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "",
+              "",
+              "",
+              "global"
+            ]
+          },
+          {
+            "id": 9,
+            "type": "PreviewImage",
+            "pos": [
+              -938.5219719715489,
+              -1357.4447521686795
+            ],
+            "size": [
+              140,
+              246
+            ],
+            "flags": {},
+            "order": 4,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "images",
+                "name": "images",
+                "type": "IMAGE",
+                "link": 7
+              }
+            ],
+            "outputs": [],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.16.4",
+              "Node name for S&R": "PreviewImage"
+            },
+            "widgets_values": []
+          },
+          {
+            "id": 7,
+            "type": "Gemini3ProImage",
+            "pos": [
+              -1442.3163697667749,
+              59.56140755635286
+            ],
+            "size": [
+              395.9910156250003,
+              710.8121093750001
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "image1",
+                "name": "image1",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image2",
+                "name": "image2",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image3",
+                "name": "image3",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image4",
+                "name": "image4",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image5",
+                "name": "image5",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image6",
+                "name": "image6",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "prompt",
+                "name": "prompt",
+                "type": "STRING",
+                "widget": {
+                  "name": "prompt"
+                },
+                "link": 54
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "Generated Image",
+                "name": "Generated Image",
+                "type": "IMAGE",
+                "links": [
+                  8,
+                  13
+                ]
+              }
+            ],
+            "title": "Prop_generation",
+            "properties": {
+              "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+              "ver": "d2dc764c2c86ff8b7a9292314ee9d3841d6622be",
+              "Node name for S&R": "Gemini3ProImage"
+            },
+            "widgets_values": [
+              "GEMINI_3_PRO_IMAGE",
+              "",
+              "16:9",
+              "1K",
+              "PNG",
+              0.7,
+              1,
+              32,
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "",
+              "",
+              "",
+              "global"
+            ]
+          },
+          {
+            "id": 10,
+            "type": "PreviewImage",
+            "pos": [
+              -998.7385169821264,
+              135.7624455364974
+            ],
+            "size": [
+              140,
+              246.00000000000003
+            ],
+            "flags": {},
+            "order": 5,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "images",
+                "name": "images",
+                "type": "IMAGE",
+                "link": 8
+              }
+            ],
+            "outputs": [],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.16.4",
+              "Node name for S&R": "PreviewImage"
+            },
+            "widgets_values": []
+          },
+          {
+            "id": 23,
+            "type": "Gemini3ProImage",
+            "pos": [
+              -1443.6391773010237,
+              -588.112532575537
+            ],
+            "size": [
+              400,
+              578
+            ],
+            "flags": {},
+            "order": 7,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "image1",
+                "name": "image1",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image2",
+                "name": "image2",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image3",
+                "name": "image3",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image4",
+                "name": "image4",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image5",
+                "name": "image5",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image6",
+                "name": "image6",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "prompt",
+                "name": "prompt",
+                "type": "STRING",
+                "widget": {
+                  "name": "prompt"
+                },
+                "link": 53
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "Generated Image",
+                "name": "Generated Image",
+                "type": "IMAGE",
+                "links": [
+                  23,
+                  78
+                ]
+              }
+            ],
+            "title": "Character_generation",
+            "properties": {
+              "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+              "ver": "d2dc764c2c86ff8b7a9292314ee9d3841d6622be",
+              "Node name for S&R": "Gemini3ProImage"
+            },
+            "widgets_values": [
+              "GEMINI_3_PRO_IMAGE",
+              "",
+              "16:9",
+              "1K",
+              "PNG",
+              0.7,
+              1,
+              32,
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "",
+              "",
+              "",
+              "global"
+            ]
+          },
+          {
+            "id": 13,
+            "type": "PreviewImage",
+            "pos": [
+              -987.2291150009381,
+              -539.4994583897156
+            ],
+            "size": [
+              140,
+              246
+            ],
+            "flags": {},
+            "order": 6,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "images",
+                "name": "images",
+                "type": "IMAGE",
+                "link": 23
+              }
+            ],
+            "outputs": [],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.16.4",
+              "Node name for S&R": "PreviewImage"
+            },
+            "widgets_values": []
+          },
+          {
+            "id": 1,
+            "type": "Gemini3ProImage",
+            "pos": [
+              -694.8286753443716,
+              -575.6193604547375
+            ],
+            "size": [
+              395.9910156250003,
+              710.8121093750001
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "image1",
+                "name": "image1",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": 78
+              },
+              {
+                "localized_name": "image2",
+                "name": "image2",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": 14
+              },
+              {
+                "localized_name": "image3",
+                "name": "image3",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": 13
+              },
+              {
+                "localized_name": "image4",
+                "name": "image4",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image5",
+                "name": "image5",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "image6",
+                "name": "image6",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "prompt",
+                "name": "prompt",
+                "type": "STRING",
+                "widget": {
+                  "name": "prompt"
+                },
+                "link": 55
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "Generated Image",
+                "name": "Generated Image",
+                "type": "IMAGE",
+                "links": [
+                  3,
+                  28
+                ]
+              }
+            ],
+            "title": "Storyboard_image_generation",
+            "properties": {
+              "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+              "ver": "d2dc764c2c86ff8b7a9292314ee9d3841d6622be",
+              "Node name for S&R": "Gemini3ProImage"
+            },
+            "widgets_values": [
+              "GEMINI_3_PRO_IMAGE",
+              "",
+              "16:9",
+              "4K",
+              "PNG",
+              1,
+              1,
+              32,
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "BLOCK_MEDIUM_AND_ABOVE",
+              "",
+              "",
+              "",
+              "global"
+            ]
+          },
+          {
+            "id": 5,
+            "type": "Veo3ImageToVideo4KNode",
+            "pos": [
+              52.308906979538975,
+              -324.0658993065202
+            ],
+            "size": [
+              400,
+              522
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "image",
+                "name": "image",
+                "type": "IMAGE",
+                "link": 3
+              },
+              {
+                "localized_name": "last_frame",
+                "name": "last_frame",
+                "shape": 7,
+                "type": "IMAGE",
+                "link": null
+              },
+              {
+                "localized_name": "prompt",
+                "name": "prompt",
+                "type": "STRING",
+                "widget": {
+                  "name": "prompt"
+                },
+                "link": 56
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "video_paths",
+                "name": "video_paths",
+                "type": "VEO_VIDEO",
+                "links": [
+                  4
+                ]
+              }
+            ],
+            "properties": {
+              "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+              "ver": "d2dc764c2c86ff8b7a9292314ee9d3841d6622be",
+              "Node name for S&R": "Veo3ImageToVideo4KNode"
+            },
+            "widgets_values": [
+              "VEO_3_1_PREVIEW",
+              "PNG",
+              "",
+              "16:9",
+              "1080p",
+              "optimized",
+              "allow_adult",
+              8,
+              true,
+              1,
+              "",
+              "",
+              698681498,
+              "randomize",
+              "",
+              "",
+              "us-central1"
+            ]
+          }
+        ],
+        "groups": [],
+        "links": [
+          {
+            "id": 7,
+            "origin_id": 8,
+            "origin_slot": 0,
+            "target_id": 9,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 23,
+            "origin_id": 23,
+            "origin_slot": 0,
+            "target_id": 13,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 78,
+            "origin_id": 23,
+            "origin_slot": 0,
+            "target_id": 1,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 14,
+            "origin_id": 8,
+            "origin_slot": 0,
+            "target_id": 1,
+            "target_slot": 1,
+            "type": "IMAGE"
+          },
+          {
+            "id": 13,
+            "origin_id": 7,
+            "origin_slot": 0,
+            "target_id": 1,
+            "target_slot": 2,
+            "type": "IMAGE"
+          },
+          {
+            "id": 3,
+            "origin_id": 1,
+            "origin_slot": 0,
+            "target_id": 5,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 8,
+            "origin_id": 7,
+            "origin_slot": 0,
+            "target_id": 10,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 51,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 8,
+            "target_slot": 6,
+            "type": "STRING"
+          },
+          {
+            "id": 53,
+            "origin_id": -10,
+            "origin_slot": 1,
+            "target_id": 23,
+            "target_slot": 6,
+            "type": "STRING"
+          },
+          {
+            "id": 55,
+            "origin_id": -10,
+            "origin_slot": 2,
+            "target_id": 1,
+            "target_slot": 6,
+            "type": "STRING"
+          },
+          {
+            "id": 56,
+            "origin_id": -10,
+            "origin_slot": 3,
+            "target_id": 5,
+            "target_slot": 2,
+            "type": "STRING"
+          },
+          {
+            "id": 54,
+            "origin_id": -10,
+            "origin_slot": 4,
+            "target_id": 7,
+            "target_slot": 6,
+            "type": "STRING"
+          },
+          {
+            "id": 28,
+            "origin_id": 1,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "IMAGE"
+          },
+          {
+            "id": 4,
+            "origin_id": 5,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 1,
+            "type": "VEO_VIDEO"
+          }
+        ],
+        "extra": {
+          "workflowRendererVersion": "LG"
+        }
+      },
+      {
+        "id": "a7454820-09e8-4043-81e9-6c806a7608a7",
+        "version": 1,
+        "state": {
+          "lastGroupId": 0,
+          "lastNodeId": 104,
+          "lastLinkId": 124,
+          "lastRerouteId": 0
+        },
+        "revision": 0,
+        "config": {},
+        "name": "JSON Response parser",
+        "inputNode": {
+          "id": -10,
+          "bounding": [
+            -3162.770895269172,
+            -735.3155420656332,
+            120,
+            60
+          ]
+        },
+        "outputNode": {
+          "id": -20,
+          "bounding": [
+            -1643.5390685987204,
+            -735.3155420656332,
+            120,
+            60
+          ]
+        },
+        "inputs": [
+          {
+            "id": "ed63a14d-e208-4f55-b173-e29bd6ec3aeb",
+            "name": "string",
+            "type": "STRING",
+            "linkIds": [
+              103
+            ],
+            "localized_name": "string",
+            "pos": [
+              -3062.770895269172,
+              -715.3155420656332
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "id": "7c022f29-965c-407e-b197-07288f8ce213",
+            "name": "JSON",
+            "type": "JSON",
+            "linkIds": [
+              99
+            ],
+            "localized_name": "JSON",
+            "pos": [
+              -1623.5390685987204,
+              -715.3155420656332
+            ]
+          }
+        ],
+        "widgets": [],
+        "nodes": [
+          {
+            "id": 84,
+            "type": "JSONParse",
+            "pos": [
+              -2103.5390685987204,
+              -799.7907028033065
+            ],
+            "size": [
+              400,
+              200
+            ],
+            "flags": {},
+            "order": 0,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "json_string",
+                "name": "json_string",
+                "type": "STRING",
+                "widget": {
+                  "name": "json_string"
+                },
+                "link": 104
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "JSON",
+                "name": "JSON",
+                "type": "JSON",
+                "links": [
+                  99
+                ]
+              }
+            ],
+            "properties": {
+              "aux_id": "SunilKumarJB/comfyui-google-genmedia-custom-nodes",
+              "ver": "182d76705c38dc5837109a1d621300005e78ca6d",
+              "Node name for S&R": "JSONParse"
+            },
+            "widgets_values": [
+              ""
+            ]
+          },
+          {
+            "id": 89,
+            "type": "RegexReplace",
+            "pos": [
+              -2547.3543491023797,
+              -836.3155420656332
+            ],
+            "size": [
+              400,
+              292
+            ],
+            "flags": {},
+            "order": 2,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "string",
+                "name": "string",
+                "type": "STRING",
+                "widget": {
+                  "name": "string"
+                },
+                "link": 102
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "STRING",
+                "name": "STRING",
+                "type": "STRING",
+                "links": [
+                  104
+                ]
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.16.4",
+              "Node name for S&R": "RegexReplace"
+            },
+            "widgets_values": [
+              "",
+              "```",
+              "",
+              true,
+              false,
+              false,
+              0
+            ]
+          },
+          {
+            "id": 88,
+            "type": "StringReplace",
+            "pos": [
+              -2982.770895269172,
+              -816.7719756780793
+            ],
+            "size": [
+              400,
+              200
+            ],
+            "flags": {},
+            "order": 1,
+            "mode": 0,
+            "inputs": [
+              {
+                "localized_name": "string",
+                "name": "string",
+                "type": "STRING",
+                "widget": {
+                  "name": "string"
+                },
+                "link": 103
+              }
+            ],
+            "outputs": [
+              {
+                "localized_name": "STRING",
+                "name": "STRING",
+                "type": "STRING",
+                "links": [
+                  102
+                ]
+              }
+            ],
+            "properties": {
+              "cnr_id": "comfy-core",
+              "ver": "0.16.4",
+              "Node name for S&R": "StringReplace"
+            },
+            "widgets_values": [
+              "",
+              "```json",
+              ""
+            ]
+          }
+        ],
+        "groups": [],
+        "links": [
+          {
+            "id": 102,
+            "origin_id": 88,
+            "origin_slot": 0,
+            "target_id": 89,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 104,
+            "origin_id": 89,
+            "origin_slot": 0,
+            "target_id": 84,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 103,
+            "origin_id": -10,
+            "origin_slot": 0,
+            "target_id": 88,
+            "target_slot": 0,
+            "type": "STRING"
+          },
+          {
+            "id": 99,
+            "origin_id": 84,
+            "origin_slot": 0,
+            "target_id": -20,
+            "target_slot": 0,
+            "type": "JSON"
+          }
+        ],
+        "extra": {
+          "workflowRendererVersion": "LG"
+        }
+      }
+    ]
+  },
+  "config": {},
+  "extra": {
+    "workflowRendererVersion": "LG",
+    "ds": {
+      "scale": 0.4047684029172703,
+      "offset": [
+        4782.895423052021,
+        1584.6683985226546
+      ]
+    },
+    "frontendVersion": "1.39.19"
+  },
+  "version": 0.4
+}
