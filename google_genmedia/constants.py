@@ -84,8 +84,14 @@ class GeminiFlashImageModel(Enum):
 
 class GeminiModel(Enum):
     GEMINI_PRO = "gemini-3-pro-preview"
+    GEMINI_3_1_PRO = "gemini-3.1-pro-preview"
     GEMINI_FLASH = "gemini-2.5-flash"
     GEMINI_FLASH_LITE = "gemini-2.5-flash-lite"
+
+
+class GeminiEmbeddingModel(Enum):
+    GEMINI_EMBEDDING_2 = "gemini-embedding-2-preview"
+
 
 
 class GeminiProImageModel(Enum):

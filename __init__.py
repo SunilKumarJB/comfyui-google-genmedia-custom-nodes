@@ -33,6 +33,7 @@ from .google_genmedia import (
     virtual_try_on,
     tts_nodes,
     json_nodes,
+    asset_nodes,
 )
 
 # Since ComfyUI uses a root logger with fileConfig(), setting up the custom logger with fileConfig()
@@ -119,6 +120,7 @@ node_modules = [
     virtual_try_on,
     tts_nodes,
     json_nodes,
+    asset_nodes,
 ]
 
 for module in node_modules:
