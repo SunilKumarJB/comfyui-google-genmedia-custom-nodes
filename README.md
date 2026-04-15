@@ -893,6 +893,32 @@ This node handles the display and persistence of generated videos. It allows you
 
 *This node does not produce data outputs to connect to other nodes. It outputs the video player UI widget.*
 
+---
+
+### Asset Manager Nodes
+
+**Category:** `Google AI/Assets`
+
+A suite of nodes that provide a built-in local SQLite database for indexing, searching, and managing AI-generated assets (images and videos).
+
+- **Asset Indexer (Gemini)**: Automatically tags and captions images/videos using Gemini and stores them in a local database.
+- **Asset Indexer With Prompt (Gemini)**: Indexes an asset with user-provided text prompts to bypass auto-captioning.
+- **Asset Search (Gemini)**: Semantic and tag-based search for retrieving assets from your database based on text queries or similar images.
+- **Asset Search By Category**: Retrieve assets filtered by predefined categories like `video`, `image/png`, etc.
+
+---
+
+### JSON Utility Nodes
+
+**Category:** `Google AI/JSON`
+
+Helper nodes to easily parse, extract, and iterate over JSON responses returned by Gemini text and reasoning models.
+
+- **JSON Parse**: Parses a raw JSON string into a structured JSON object.
+- **JSON Get Value**: Extracts specific values from a JSON object using dot notation keys.
+- **JSON To String**: Converts a JSON object back into a string format.
+- **JSON Iterate**: Allows looping over arrays or lists within a JSON object for batch processing in ComfyUI.
+
 ### Sample Workflows
 
 Here is a GIF showing the various workflows in action,
