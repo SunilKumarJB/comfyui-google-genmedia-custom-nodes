@@ -93,12 +93,14 @@ class GeminiEmbeddingModel(Enum):
     GEMINI_EMBEDDING_2 = "gemini-embedding-2-preview"
 
 
-
 class GeminiProImageModel(Enum):
     GEMINI_3_PRO_IMAGE = "gemini-3-pro-image-preview"
 
 
 class Imagen4Model(str, Enum):
+    IMAGEN_4 = "imagen-4.0-generate-001"
+    IMAGEN_4_FAST = "imagen-4.0-fast-generate-001"
+    IMAGEN_4_ULTRA = "imagen-4.0-ultra-generate-001"
     IMAGEN_4_PREVIEW = "imagen-4.0-generate-preview-06-06"
     IMAGEN_4_FAST_PREVIEW = "imagen-4.0-fast-generate-preview-06-06"
     IMAGEN_4_ULTRA_PREVIEW = "imagen-4.0-ultra-generate-preview-06-06"
@@ -115,6 +117,8 @@ class ThresholdOptions(Enum):
 
 
 class Veo3Model(str, Enum):
+    VEO_3_1 = "veo-3.1-generate-001"
+    VEO_3_1_FAST = "veo-3.1-fast-generate-001"
     VEO_3_1_PREVIEW = "veo-3.1-generate-001"
     VEO_3_1_FAST_PREVIEW = "veo-3.1-fast-generate-001"
     VEO_3_1_GENERATE_001 = "veo-3.1-generate-001"
