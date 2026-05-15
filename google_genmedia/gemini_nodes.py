@@ -73,7 +73,7 @@ class GeminiNode25(VertexAIClient):
                     {"multiline": True, "default": "Describe the content in detail."},
                 ),
                 "model": (
-                    [model.name for model in GeminiModel],
+                    list(GeminiModel.__members__.keys()),
                     {"default": GeminiModel.GEMINI_PRO.name},
                 ),
                 # GenerationConfig Parameters

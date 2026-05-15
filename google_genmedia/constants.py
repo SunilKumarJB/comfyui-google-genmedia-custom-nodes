@@ -119,10 +119,6 @@ class ThresholdOptions(Enum):
 class Veo3Model(str, Enum):
     VEO_3_1 = "veo-3.1-generate-001"
     VEO_3_1_FAST = "veo-3.1-fast-generate-001"
-    VEO_3_1_PREVIEW = "veo-3.1-generate-001"
-    VEO_3_1_FAST_PREVIEW = "veo-3.1-fast-generate-001"
-    VEO_3_1_GENERATE_001 = "veo-3.1-generate-001"
-    VEO_3_1_FAST_GENERATE_001 = "veo-3.1-fast-generate-001"
 
 
 class TTSModel(str, Enum):

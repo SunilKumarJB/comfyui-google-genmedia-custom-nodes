@@ -50,7 +50,7 @@ class Gemini3ProImage:
         return {
             "required": {
                 "model": (
-                    [model.name for model in GeminiProImageModel],
+                    list(GeminiProImageModel.__members__.keys()),
                     {"default": GeminiProImageModel.GEMINI_3_PRO_IMAGE.name},
                 ),
                 "prompt": (
@@ -299,7 +299,7 @@ class Gemini3ProImageEditing:
         return {
             "required": {
                 "model": (
-                    [model.name for model in GeminiProImageModel],
+                    list(GeminiProImageModel.__members__.keys()),
                     {"default": GeminiProImageModel.GEMINI_3_PRO_IMAGE.name},
                 ),
                 "prompt": ("STRING", {"multiline": True, "default": "Describe the edits"}),
@@ -416,7 +416,7 @@ class Gemini3ProControlledImage:
         return {
             "required": {
                 "model": (
-                    [model.name for model in GeminiProImageModel],
+                    list(GeminiProImageModel.__members__.keys()),
                     {"default": GeminiProImageModel.GEMINI_3_PRO_IMAGE.name},
                 ),
                 "prompt": ("STRING", {"multiline": True, "default": "A vivid landscape"}),

@@ -127,8 +127,8 @@ class Veo3API(VertexAIClient):
         model = Veo3Model[model]
 
         if output_resolution == "4k":
-            if model not in [Veo3Model.VEO_3_1_PREVIEW, Veo3Model.VEO_3_1_FAST_PREVIEW]:
-                raise APIInputError("4K resolution is only supported for Veo 3.1 Preview models.")
+            if model not in [Veo3Model.VEO_3_1, Veo3Model.VEO_3_1_FAST]:
+                raise APIInputError("4K resolution is only supported for Veo 3.1 models.")
 
         return utils.generate_video_from_text(
             client=self.client,
@@ -220,8 +220,8 @@ class Veo3API(VertexAIClient):
         model = Veo3Model[model]
 
         if output_resolution == "4k":
-            if model not in [Veo3Model.VEO_3_1_PREVIEW, Veo3Model.VEO_3_1_FAST_PREVIEW]:
-                raise APIInputError("4K resolution is only supported for Veo 3.1 Preview models.")
+            if model not in [Veo3Model.VEO_3_1, Veo3Model.VEO_3_1_FAST]:
+                raise APIInputError("4K resolution is only supported for Veo 3.1 models.")
         return utils.generate_video_from_image(
             client=self.client,
             model=model,
@@ -299,8 +299,8 @@ class Veo3API(VertexAIClient):
             )
 
         if output_resolution == "4k":
-            if model_enum not in [Veo3Model.VEO_3_1_PREVIEW, Veo3Model.VEO_3_1_FAST_PREVIEW]:
-                raise APIInputError("4K resolution is only supported for Veo 3.1 Preview models.")
+            if model_enum not in [Veo3Model.VEO_3_1, Veo3Model.VEO_3_1_FAST]:
+                raise APIInputError("4K resolution is only supported for Veo 3.1 models.")
 
         return utils.generate_video_from_references(
             client=self.client,
@@ -424,8 +424,8 @@ class Veo3API(VertexAIClient):
         model = Veo3Model[model]
 
         if output_resolution == "4k":
-            if model not in [Veo3Model.VEO_3_1_PREVIEW, Veo3Model.VEO_3_1_FAST_PREVIEW]:
-                raise APIInputError("4K resolution is only supported for Veo 3.1 Preview models.")
+            if model not in [Veo3Model.VEO_3_1, Veo3Model.VEO_3_1_FAST]:
+                raise APIInputError("4K resolution is only supported for Veo 3.1 models.")
 
         return utils.generate_video_from_gcsuri_image(
             client=self.client,
@@ -503,8 +503,8 @@ class Veo3API(VertexAIClient):
         model_enum = Veo3Model[model]
 
         if output_resolution == "4k":
-            if model_enum not in [Veo3Model.VEO_3_1_PREVIEW, Veo3Model.VEO_3_1_FAST_PREVIEW]:
-                raise APIInputError("4K resolution is only supported for Veo 3.1 Preview models.")
+            if model_enum not in [Veo3Model.VEO_3_1, Veo3Model.VEO_3_1_FAST]:
+                raise APIInputError("4K resolution is only supported for Veo 3.1 models.")
 
         return utils.extend_video(
             client=self.client,

@@ -36,7 +36,7 @@ class Veo3TextToVideoNode:
         return {
             "required": {
                 "model": (
-                    [model.name for model in Veo3Model],
+                    list(Veo3Model.__members__.keys()),
                     {"default": Veo3Model.VEO_3_1.name},
                 ),
                 "prompt": ("STRING", {"multiline": True}),
@@ -191,7 +191,7 @@ class Veo3GcsUriImageToVideoNode:
         return {
             "required": {
                 "model": (
-                    [model.name for model in Veo3Model],
+                    list(Veo3Model.__members__.keys()),
                     {"default": Veo3Model.VEO_3_1.name},
                 ),
                 "gcsuri": (
@@ -367,7 +367,7 @@ class Veo3ImageToVideoNode:
         return {
             "required": {
                 "model": (
-                    [model.name for model in Veo3Model],
+                    list(Veo3Model.__members__.keys()),
                     {"default": Veo3Model.VEO_3_1.name},
                 ),
                 "image": ("IMAGE",),
@@ -549,7 +549,7 @@ class Veo3ReferenceToVideo:
         return {
             "required": {
                 "model": (
-                    [model.name for model in Veo3Model],
+                    list(Veo3Model.__members__.keys()),
                     {"default": Veo3Model.VEO_3_1.name},
                 ),
                 "image1": ("IMAGE",),
@@ -680,7 +680,7 @@ class Veo3TextToVideo4KNode(Veo3TextToVideoNode):
     @classmethod
     def INPUT_TYPES(cls):
         types = super().INPUT_TYPES()
-        types["required"]["model"] = ([Veo3Model.VEO_3_1_PREVIEW.name, Veo3Model.VEO_3_1_FAST_PREVIEW.name], {"default": Veo3Model.VEO_3_1_PREVIEW.name})
+        types["required"]["model"] = (list(Veo3Model.__members__.keys()), {"default": Veo3Model.VEO_3_1.name})
         types["required"]["output_resolution"] = (["720p", "1080p", "4k"], {"default": "4k"})
         return types
 
@@ -689,7 +689,7 @@ class Veo3GcsUriImageToVideo4KNode(Veo3GcsUriImageToVideoNode):
     @classmethod
     def INPUT_TYPES(cls):
         types = super().INPUT_TYPES()
-        types["required"]["model"] = ([Veo3Model.VEO_3_1_PREVIEW.name, Veo3Model.VEO_3_1_FAST_PREVIEW.name], {"default": Veo3Model.VEO_3_1_PREVIEW.name})
+        types["required"]["model"] = (list(Veo3Model.__members__.keys()), {"default": Veo3Model.VEO_3_1.name})
         types["required"]["output_resolution"] = (["720p", "1080p", "4k"], {"default": "4k"})
         return types
 
@@ -698,7 +698,7 @@ class Veo3ImageToVideo4KNode(Veo3ImageToVideoNode):
     @classmethod
     def INPUT_TYPES(cls):
         types = super().INPUT_TYPES()
-        types["required"]["model"] = ([Veo3Model.VEO_3_1_PREVIEW.name, Veo3Model.VEO_3_1_FAST_PREVIEW.name], {"default": Veo3Model.VEO_3_1_PREVIEW.name})
+        types["required"]["model"] = (list(Veo3Model.__members__.keys()), {"default": Veo3Model.VEO_3_1.name})
         types["required"]["output_resolution"] = (["720p", "1080p", "4k"], {"default": "4k"})
         return types
 
@@ -707,7 +707,7 @@ class Veo3ReferenceToVideo4KNode(Veo3ReferenceToVideo):
     @classmethod
     def INPUT_TYPES(cls):
         types = super().INPUT_TYPES()
-        types["required"]["model"] = ([Veo3Model.VEO_3_1_PREVIEW.name, Veo3Model.VEO_3_1_FAST_PREVIEW.name], {"default": Veo3Model.VEO_3_1_PREVIEW.name})
+        types["required"]["model"] = (list(Veo3Model.__members__.keys()), {"default": Veo3Model.VEO_3_1.name})
         types["required"]["output_resolution"] = (["720p", "1080p", "4k"], {"default": "4k"})
         return types
 
@@ -722,8 +722,8 @@ class Veo3ExtendVideoNode:
         return {
             "required": {
                 "model": (
-                    [model.name for model in Veo3Model],
-                    {"default": Veo3Model.VEO_3_1_PREVIEW.name},
+                    list(Veo3Model.__members__.keys()),
+                    {"default": Veo3Model.VEO_3_1.name},
                 ),
                 "input_video_gcs_uri": (
                     "STRING",
@@ -844,7 +844,7 @@ class Veo3ExtendVideo4KNode(Veo3ExtendVideoNode):
     @classmethod
     def INPUT_TYPES(cls):
         types = super().INPUT_TYPES()
-        types["required"]["model"] = ([Veo3Model.VEO_3_1_PREVIEW.name, Veo3Model.VEO_3_1_FAST_PREVIEW.name], {"default": Veo3Model.VEO_3_1_PREVIEW.name})
+        types["required"]["model"] = (list(Veo3Model.__members__.keys()), {"default": Veo3Model.VEO_3_1.name})
         types["required"]["output_resolution"] = (["720p", "1080p", "4k"], {"default": "4k"})
         return types
 

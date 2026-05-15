@@ -82,8 +82,8 @@ GEMINI_API_KEY="${GEMINI_API_KEY:-}"
 # Resource sizing. ComfyUI is just orchestrating Vertex AI calls here, but
 # it loads its full Python stack into memory and the model-management code
 # allocates generously even on CPU.
-MEMORY="${MEMORY:-4Gi}"
-CPU="${CPU:-2}"
+MEMORY="${MEMORY:-16Gi}"
+CPU="${CPU:-8}"
 
 # Cloud Run's max request timeout is 3600 seconds (1 hour). Veo lossless
 # or large batch jobs may exceed this — see the README for caveats.

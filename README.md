@@ -588,7 +588,7 @@ Extends the duration of an existing video up to an additional 30 seconds using t
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| **model** | `Dropdown` | `VEO_3_1_PREVIEW` | Select the specific Veo 3 model version. |
+| **model** | `Dropdown` | `VEO_3_1` | Select the specific Veo 3 model version. |
 | **input_video_gcs_uri** | `STRING` | `""` | The `gs://` URI path to the original video to extend. |
 | **prompt** | `STRING` | _N/A_ | Multiline string. Text description to guide the extension. |
 | **aspect_ratio** | `Dropdown` | `16:9` | The aspect ratio of the generated video. **Options:** `16:9`, `9:16`. |

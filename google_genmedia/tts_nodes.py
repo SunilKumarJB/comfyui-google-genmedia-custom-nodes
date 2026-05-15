@@ -32,7 +32,7 @@ class GeminiTTSNode:
         return {
             "required": {
                 "text": ("STRING", {"multiline": True, "default": "Hello, how are you today?"}),
-                "model": ([m.name for m in TTSModel], {"default": TTSModel.GEMINI_TTS_FLASH.name}),
+                "model": (list(TTSModel.__members__.keys()), {"default": TTSModel.GEMINI_TTS_FLASH.name}),
                 "voice_name": (GEMINI_TTS_VOICES, {"default": "Kore"}),
                 "language_code": ("STRING", {"default": "en-US"}),
             },
@@ -92,7 +92,7 @@ class GeminiTTSEnhanced:
         return {
             "required": {
                 "text": ("STRING", {"multiline": True, "default": "Hello, how are you today?"}),
-                "model": ([m.name for m in TTSModel], {"default": TTSModel.GEMINI_TTS_FLASH.name}),
+                "model": (list(TTSModel.__members__.keys()), {"default": TTSModel.GEMINI_TTS_FLASH.name}),
                 "voice_name": (GEMINI_TTS_VOICES, {"default": "Kore"}),
                 "language_code": ("STRING", {"default": "en-US"}),
                 "style_prompt": (

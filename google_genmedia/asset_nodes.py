@@ -23,6 +23,7 @@ from google.genai import types
 
 from .asset_db import get_all_assets, insert_or_update_asset, search_assets_by_tags, search_similar_assets
 from .base import VertexAIClient
+from .config import get_gcp_metadata
 from .constants import GEMINI_USER_AGENT, GeminiEmbeddingModel, GeminiModel
 from .custom_exceptions import APIExecutionError, ConfigurationError
 from .logger import get_node_logger
@@ -140,18 +141,9 @@ class GeminiAssetIndexer(VertexAIClient):
         # 2. Generate Embedding with Gemini Embedding 2
         emb_model = GeminiEmbeddingModel.GEMINI_EMBEDDING_2.value
         embedding_list = None
-        effective_api_key = os.environ.get("GEMINI_API_KEY")
-        project_id = os.environ.get("GCP_PROJECT_ID")
-        embedded_region = os.environ.get("EMBEDDING_REGION")
-        
         try:
             logger.info(f"Calling {emb_model} for multimodal embedding...")
-            if effective_api_key:
-                cl = genai.Client(api_key=effective_api_key)
-            else:
-                cl = genai.Client(vertexai=True, project=project_id, location=embedded_region)
-            
-            emb_res = cl.models.embed_content(
+            emb_res = self.client.models.embed_content(
                 model=emb_model,
                 contents=image_part,
             )
@@ -243,7 +235,8 @@ try:
             per_page = int(request.query.get("per_page", "10"))
             storage_mode = request.query.get("storage_mode", "local")
             offset = (page - 1) * per_page
-            assets = get_all_assets(limit=per_page, offset=offset, storage_mode=storage_mode, project_id=os.environ.get("GCP_PROJECT_ID"))
+            project_id = os.environ.get("GCP_PROJECT_ID") or get_gcp_metadata("project/project-id")
+            assets = get_all_assets(limit=per_page, offset=offset, storage_mode=storage_mode, project_id=project_id)
             from urllib.parse import quote
 
             for item in assets:
@@ -261,13 +254,22 @@ try:
             search_mode = data.get("mode", "semantic")
             storage_mode = data.get("storage_mode", "local")
 
+            project_id = os.environ.get("GCP_PROJECT_ID") or get_gcp_metadata("project/project-id")
             if search_mode == "tags":
                 tags = [t.strip() for t in query.split(",") if t.strip()]
-                results = search_assets_by_tags(tags, storage_mode=storage_mode, project_id=os.environ.get("GCP_PROJECT_ID"))
+                results = search_assets_by_tags(tags, storage_mode=storage_mode, project_id=project_id)
             else:
                 effective_api_key = os.environ.get("GEMINI_API_KEY")
-                project_id = os.environ.get("GCP_PROJECT_ID")
-                region = os.environ.get("EMBEDDING_REGION")
+                region = os.environ.get("EMBEDDING_REGION") or os.environ.get("GCP_REGION")
+                if not region:
+                    zone_metadata = get_gcp_metadata("instance/zone")
+                    if zone_metadata:
+                        try:
+                            zone_name = zone_metadata.split("/")[-1]
+                            region = "-".join(zone_name.split("-")[:-1])
+                        except Exception as e:
+                            logger.error(f"Failed to parse region from zone metadata: {e}")
+                            region = None
 
                 if not (effective_api_key or (project_id and region)):
                     return web.json_response({"error": "GCP credentials missing from env."}, status=400)
@@ -450,20 +452,8 @@ class GeminiAssetIndexerWithPrompt(VertexAIClient):
         emb_model = GeminiEmbeddingModel.GEMINI_EMBEDDING_2.value
         embedding_list = None
 
-        effective_api_key = os.environ.get("GEMINI_API_KEY")
-        project_id = os.environ.get("GCP_PROJECT_ID")
-        region = os.environ.get("EMBEDDING_REGION")
-
-        if not (effective_api_key or (project_id and region)):
-            return web.json_response({"error": "GCP credentials missing from env. Run an indexer node first to populate config."}, status=400)
-
         try:
-            if effective_api_key:
-                cl = genai.Client(api_key=effective_api_key)
-            else:
-                cl = genai.Client(vertexai=True, project=project_id, location=region)
-
-            emb_res = cl.models.embed_content(
+            emb_res = self.client.models.embed_content(
                 model=emb_model,
                 contents=image_part,
             )
@@ -621,20 +611,8 @@ class GeminiVideoAssetIndexerWithPrompt(VertexAIClient):
         emb_model = GeminiEmbeddingModel.GEMINI_EMBEDDING_2.value
         embedding_list = None
 
-        effective_api_key = os.environ.get("GEMINI_API_KEY")
-        project_id = os.environ.get("GCP_PROJECT_ID")
-        region = os.environ.get("EMBEDDING_REGION")
-
-        if not (effective_api_key or (project_id and region)):
-            return web.json_response({"error": "GCP credentials missing from env. Run an indexer node first to populate config."}, status=400)
-
         try:
-            if effective_api_key:
-                cl = genai.Client(api_key=effective_api_key)
-            else:
-                cl = genai.Client(vertexai=True, project=project_id, location=region)
-
-            emb_res = cl.models.embed_content(
+            emb_res = self.client.models.embed_content(
                 model=emb_model,
                 contents=video_part,
             )

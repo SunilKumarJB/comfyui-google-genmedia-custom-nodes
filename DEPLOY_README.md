@@ -101,8 +101,8 @@ All overridable via env vars before running `deploy.sh`:
 | `GCP_REGION` | `global` | Runtime env var passed to the container. Vertex AI region for Imagen/Veo/etc. Only set if you pass it. |
 | `EMBEDDING_REGION` | `us-central1` | Runtime env var for Vertex AI embedding endpoints. Only set if you pass it. |
 | `SERVICE_NAME` | `comfyui` | Cloud Run service name |
-| `MEMORY` | `4Gi` | Bump if ComfyUI OOMs on large workflows |
-| `CPU` | `2` | |
+| `MEMORY` | `16Gi` | Bump if ComfyUI OOMs on large workflows |
+| `CPU` | `8` | |
 | `TIMEOUT` | `3600` | Cloud Run max is 3600s (1 hour) |
 | `MIN_INSTANCES` | `1` | See warning below; 0 will kill in-flight jobs |
 | `MAX_INSTANCES` | `3` | |

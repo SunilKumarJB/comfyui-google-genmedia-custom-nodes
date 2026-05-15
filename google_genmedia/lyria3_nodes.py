@@ -41,7 +41,7 @@ class Lyria3TextToMusicNode:
                         "default": "Genre: Upbeat, acoustic Folk-Pop\nLyrics:\nTail wags and a heavy head,\nTime to curl up in your favorite bed."
                     }
                 ),
-                "model": ([m.name for m in Lyria3Model], {"default": Lyria3Model.LYRIA_3_PRO.name}),
+                "model": (list(Lyria3Model.__members__.keys()), {"default": Lyria3Model.LYRIA_3_PRO.name}),
             },
             "optional": {
                 "api_key": ("STRING", {"default": ""}),
@@ -83,7 +83,7 @@ class Lyria3ImageToMusicNode:
             "required": {
                 "image": ("IMAGE",),
                 "prompt": ("STRING", {"multiline": True, "default": "Generate an instrumental track based on this input image that starts slowly and builds in intensity."}),
-                "model": ([m.name for m in Lyria3Model], {"default": Lyria3Model.LYRIA_3_CLIP.name}),
+                "model": (list(Lyria3Model.__members__.keys()), {"default": Lyria3Model.LYRIA_3_CLIP.name}),
             },
             "optional": {
                 "api_key": ("STRING", {"default": ""}),

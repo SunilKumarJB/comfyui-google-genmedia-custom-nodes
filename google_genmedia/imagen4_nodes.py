@@ -47,7 +47,7 @@ class Imagen4TextToImageNode:
         return {
             "required": {
                 "model": (
-                    [model.name for model in Imagen4Model],
+                    list(Imagen4Model.__members__.keys()),
                     {"default": Imagen4Model.IMAGEN_4.name},
                 ),
                 "prompt": (

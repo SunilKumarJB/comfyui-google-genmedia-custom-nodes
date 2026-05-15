@@ -50,7 +50,7 @@ class Gemini25FlashImage:
         return {
             "required": {
                 "model": (
-                    [model.name for model in GeminiFlashImageModel],
+                    list(GeminiFlashImageModel.__members__.keys()),
                     {"default": GeminiFlashImageModel.GEMINI_25_FLASH_IMAGE.name},
                 ),
                 "prompt": (
